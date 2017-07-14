@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AAMB Trumpet Auditions</title>
+<style>
+body {
+	background-color: #C28E0E;
+}
+h1 {
+	font-family: verdana;
+}
+</style>
+</head>
+<body style='margin-left:50px;margin-right:50px;'>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+  $( function() {
+    var availableTags = [
+      "Alex L.",
+	  "Alex K.",
+	  "Bobby",
+	  "Cassie",
+	  "Colin",
+	  "Jeremy",
+	  "J.C.",
+	  "Kristin",
+	  "Nick",
+	  "Ryan",
+	  "Tim",
+	  "Vince"
+    ];
+    $( "#tags" ).autocomplete({
+      source: availableTags
+    });
+  } );
+  </script>
+  
+<header>
+<h1>2017 AAMB Trumpet Auditions </h1>
+</header>
+
+<form action="scripts/send.php" method="post">
+<h3>Student Leader</h3>
+  <select id="leader">
+	<option value=""></option>
+    <option value="alex_l">Alex L.</option>
+	<option value="alex_k">Alex K.</option>
+	<option value="bobby">Bobby</option>
+	<option value="cassie">Cassie</option>
+	<option value="colin">Colin</option>
+	<option value="jeremy">Jeremy</option>
+	<option value="jc">J.C.</option>
+	<option value="kristin">Kristin</option>
+	<option value="nick">Nick</option>
+	<option value="ryan">Ryan</option>
+	<option value="tim">Tim</option>
+	<option value="vince">Vince</option>
+  </select>
+
+<div class="ui-widget">
+  <label for="tags"><h3>Auditionees</h3></label>
+  <input id="tags">
+</div>
+
+<h3>Criteria</h3>
+  <select id="questions">
+	<option value=""></option>
+    <option value="guiding">Guiding</option>
+    <option value="low chair">Low Chair</option>
+    <option value="mark time">Mark Time</option>
+    <option value="high chair">High Chair</option>
+    <option value="flanks">Flanks</option>
+  </select>
+
+<h3>Change</h3>
+  <input type="radio" name="change" value="better">Better<br>
+  <input type="radio" name="change" value="worse">Worse
+  
+<br><br>
+  
+<input type="submit" value="Submit">
+</form>
+</body>
+</html>

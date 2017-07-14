@@ -1,2 +1,2 @@
 # audition-web-form
-An html form that loads the entries into a database.
+A web form that puts auditionee information into a database.
