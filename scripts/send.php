@@ -31,4 +31,6 @@ if(mysqli_query($link, $sql)){
  
 // close connection
 mysqli_close($link);
+header("Refresh:0");
+
 ?>
