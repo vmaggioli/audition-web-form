@@ -18,12 +18,19 @@ $criteria = $_POST['criteria'];
 $difference = $_POST['change'];
 $comments = $_POST["comments"];
  
-$sql = "INSERT INTO test VALUES ('$student_leader', '$student', '$criteria',
-	'$difference', '$comments', '$date');";
-
 try {
-    $conn->exec($sql);
+	$sql = $conn->prepare("INSERT INTO test VALUES (:SL, :STUDENT, :CRITERIA,
+		:DIFFERENCE, :COMMENTS, :DATE)");
+	$sql->bindParam(':SL', $student_leader);
+	$sql->bindParam(':STUDENT', $student);
+	$sql->bindParam(':CRITERIA', $criteria);
+	$sql->bindParam(':DIFFERENCE', $difference);
+	$sql->bindParam(':COMMENTS', $comments);
+	$sql->bindParam(':DATE', $date);
+
+    $sql->execute();
 	echo "Records added successfully.";
+
 } catch(PDOException $e) {
     echo "ERROR: Could not process request.<br>";
 	echo $e->getMessage();
