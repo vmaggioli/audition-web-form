@@ -1,17 +1,17 @@
 <?php
+
 include("../../config/db_config.php");
+header("Refresh:2; url=http://web.ics.purdue.edu/~cmilhaup/public/auditions.html");
+
 try {
 	$conn = new PDO("mysql:host=$host;dbname=$db_name", $username, $password);
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	echo "Connected successfully<br>"; 
 } catch(PDOException $e) {
 	echo "Connection failed: " . $e->getMessage() . "<br>";
 }
 
 //works with just 1 entry per person
 $date = date('Y-m-d H:i:s', time());
-echo "The current server date is: " . $date . "<br>";
-
 $student_leader = $_POST["leader"];
 $student = $_POST["student"];
 $criteria = $_POST['criteria'];
@@ -20,8 +20,6 @@ $comments = $_POST["comments"];
  
 $sql = "INSERT INTO test VALUES ('$student_leader', '$student', '$criteria',
 	'$difference', '$comments', '$date');";
-
-echo $sql;
 
 try {
     $conn->exec($sql);
@@ -32,7 +30,6 @@ try {
 }
  
 // close connection
-$conn->close();
-header("Refresh:1");
+$conn = null;
 
 ?>
