@@ -1,36 +1,38 @@
 <?php
 include("../../config/db_config.php");
-/*$link = mysqli_connect($host, $username, $password, $db_name, $db_table);
-
-if($link === false){
-    die("ERROR: Could not connect. " . mysqli_connect_error());
+try {
+	$conn = new PDO("mysql:host=$host;dbname=$db_name", $username, $password);
+	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	echo "Connected successfully<br>"; 
+} catch(PDOException $e) {
+	echo "Connection failed: " . $e->getMessage() . "<br>";
 }
-*/
 
 //works with just 1 entry per person
+$date = date('Y-m-d H:i:s', time());
+echo "The current server date is: " . $date . "<br>";
 
-echo "Form:";
-echo $_POST["leader"];
-echo $_POST["student"];
-echo $_POST["criteria"];
-echo $_POST["change"];
-echo $_POST["comments"];
+$student_leader = $_POST["leader"];
+$student = $_POST["student"];
+$criteria = $_POST['criteria'];
+$difference = $_POST['change'];
+$comments = $_POST["comments"];
  
-$student_leader = mysqli_real_escape_string($link, $_REQUEST['leader']);
-$student = mysqli_real_escape_string($link, $_REQUEST['student']);
-$criteria = mysqli_real_escape_string($link, $_REQUEST['criteria']);
-$change = mysqli_real_escape_string($link, $_REQUEST['change']);
-$comments = mysqli_real_escape_string($link, $_REQUEST['comments']);
- 
-$sql = "INSERT INTO persons (first_name, last_name, email) VALUES ('$first_name', '$last_name', '$email')";
-if(mysqli_query($link, $sql)){
-    echo "Records added successfully.";
-} else{
-    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+$sql = "INSERT INTO test VALUES ('$student_leader', '$student', '$criteria',
+	'$difference', '$comments', '$date');";
+
+echo $sql;
+
+try {
+    $conn->exec($sql);
+	echo "Records added successfully.";
+} catch(PDOException $e) {
+    echo "ERROR: Could not process request.<br>";
+	echo $e->getMessage();
 }
  
 // close connection
-mysqli_close($link);
-header("Refresh:0");
+$conn->close();
+header("Refresh:1");
 
 ?>
