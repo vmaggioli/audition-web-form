@@ -57,8 +57,9 @@
   <input name="student" id="student">
 </div>
 
+<div id="wrapper">
 <h3>Criteria</h3>
-  <select name="criteria">
+  <select name="criteria1">
 	<option value=""></option>
     <option value="Guiding">Guiding</option>
     <option value="Low Chair">Low Chair</option>
@@ -68,20 +69,25 @@
   </select>
 
 <h3>Change</h3>
-  <input name="change" type="radio" value="Better">Better<br>
-  <input name="change" type="radio" value="Worse">Worse<br>
+  <input name="change1" type="radio" value="Better">Better<br>
+  <input name="change1" type="radio" value="Worse">Worse<br>
 
 <h3>Comments (optional)</h3>
-<textarea id="comments" name="comments" rows="4" cols="25" maxlength="100"
-  onkeydown="updateCharCount()"></textarea>
+<textarea id="comments1" name="comments1" rows="4" cols="25" maxlength="100"
+  onkeydown="updateCharCount(this.name)"></textarea>
 
 <br><br>
 
-<span id="chars">100</span> characters remaining
+<span id="chars1">100</span> characters remaining
 
-<br></br>
+<br><hr>
+</div>
+<br>
 
+<input type="button" id="more_fields" onclick="add_criteria();" value="Add another comment"></input><br><br>
 <input type="submit" value="Submit"></input>
+
+<div name="counter" id="counter" value="1"></div>
 
 </form>
 </body>
