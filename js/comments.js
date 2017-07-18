@@ -1,8 +1,3 @@
-$(document).ready(function() {
-  var commentBox = document.getElementById("comments");
-  commentBox.addEventListener("keydown", updateCharCount());
-})
-
 function updateCharCount(name) {
   // this key is the button pressed
   var num = name.charAt(8);
