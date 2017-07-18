@@ -40,7 +40,7 @@
 <h1>2017 AAMB Trumpet Auditions </h1>
 </header>
 
-<form action="scripts/send.php" method="POST">
+<form action="scripts/send.php" method="POST" onsubmit="return isValidForm()">
 <h3>Student Leader</h3>
   <select name="leader">
 	<option value=""></option>
@@ -78,7 +78,6 @@
   <h3>Change</h3>
     <input name="change1" type="radio" value="Better">Better<br>
     <input name="change1" type="radio" value="Worse">Worse<br>
-
   <h3>Comments (optional)</h3>
   <textarea id="comments1" name="comments1" rows="4" cols="25" maxlength="100"></textarea>
 

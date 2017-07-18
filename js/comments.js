@@ -15,3 +15,7 @@ function addValidateListener(elementTextArea) {
     elementTextArea.value = elementTextArea.value.replace(";", "");
   });
 }
+
+function isValidForm() {
+  
+}
