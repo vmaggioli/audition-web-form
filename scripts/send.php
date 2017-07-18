@@ -10,32 +10,34 @@ try {
 	echo "Connection failed: " . $e->getMessage() . "<br>";
 }
 
-//works with just 1 entry per person
-$date = date('Y-m-d H:i:s', time());
-$student_leader = $_POST["leader"];
-$student = $_POST["student"];
-$criteria = $_POST['criteria'];
-$difference = $_POST['change'];
-$comments = $_POST["comments"];
- 
-try {
-	$sql = $conn->prepare("INSERT INTO test VALUES (:SL, :STUDENT, :CRITERIA,
-		:DIFFERENCE, :COMMENTS, :DATE)");
-	$sql->bindParam(':SL', $student_leader);
-	$sql->bindParam(':STUDENT', $student);
-	$sql->bindParam(':CRITERIA', $criteria);
-	$sql->bindParam(':DIFFERENCE', $difference);
-	$sql->bindParam(':COMMENTS', $comments);
-	$sql->bindParam(':DATE', $date);
+$count = $_POST('count')
+for ($i=0; $i<$count; $i++) {
+	$date = date('Y-m-d H:i:s', time());
+	$student_leader = $_POST["leader"];
+	$student = $_POST["student"];
+	$criteria = $_POST["criteria" . $count];
+	$difference = $_POST["change" . $count];
+	$comments = $_POST["comments" . $count];
 
-    $sql->execute();
-	echo "Records added successfully.";
+	try {
+		$sql = $conn->prepare("INSERT INTO test VALUES (:SL, :STUDENT, :CRITERIA,
+			:DIFFERENCE, :COMMENTS, :DATE)");
+		$sql->bindParam(':SL', $student_leader);
+		$sql->bindParam(':STUDENT', $student);
+		$sql->bindParam(':CRITERIA', $criteria);
+		$sql->bindParam(':DIFFERENCE', $difference);
+		$sql->bindParam(':COMMENTS', $comments);
+		$sql->bindParam(':DATE', $date);
 
-} catch(PDOException $e) {
-    echo "ERROR: Could not process request.<br>";
-	echo $e->getMessage();
+	    $sql->execute();
+		echo "Records added successfully.";
+
+	} catch(PDOException $e) {
+	    echo "ERROR: Could not process request.<br>";
+		echo $e->getMessage();
+	}
 }
- 
+
 // close connection
 $conn = null;
 
