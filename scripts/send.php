@@ -30,7 +30,7 @@ for ($i=1; $i<=$count; $i++) {
 		$sql->bindParam(':DATE', $date);
 
 	    $sql->execute();
-		echo "Records added successfully.";
+		echo "Records added successfully.</br>";
 
 	} catch(PDOException $e) {
 	    echo "ERROR: Could not process request.<br>";
