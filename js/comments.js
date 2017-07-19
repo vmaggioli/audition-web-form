@@ -7,7 +7,7 @@ function add_criteria() {
   wrapper.appendChild(newChild);
   addValidateListener(document.getElementById('comments'+count))
   var val = document.getElementById("counter");
-  val.setAttribute('value', count);
+  val.setAttribute("value", count);
   count++;
 }
 

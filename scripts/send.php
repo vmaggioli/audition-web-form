@@ -1,7 +1,6 @@
 <?php
 include("../../config/db_config.php");
 header("Refresh:2; url=http://web.ics.purdue.edu/~cmilhaup/public/auditions.html");
-//echo "In script.</br>";
 
 try {
 	$conn = new PDO("mysql:host=$host;dbname=$db_name", $username, $password);
@@ -11,15 +10,14 @@ try {
 }
 
 $count = $_POST["counter"];
-//echo "Count: " . $count . "</br>";
 
-for ($i=0; $i<$count; $i++) {
+for ($i=1; $i<=$count; $i++) {
 	$date = date('Y-m-d H:i:s', time());
 	$student_leader = $_POST["leader"];
 	$student = $_POST["student"];
-	$criteria = $_POST["criteria" . $count];
-	$difference = $_POST["change" . $count];
-	$comments = $_POST["comments" . $count];
+	$criteria = $_POST["criteria" . $i];
+	$difference = $_POST["change" . $i];
+	$comments = $_POST["comments" . $i];
 
 	try {
 		$sql = $conn->prepare("INSERT INTO test VALUES (:SL, :STUDENT, :CRITERIA,
