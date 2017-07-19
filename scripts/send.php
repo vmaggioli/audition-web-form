@@ -1,16 +1,18 @@
 <?php
-
 include("../../config/db_config.php");
 header("Refresh:2; url=http://web.ics.purdue.edu/~cmilhaup/public/auditions.html");
+//echo "In script.</br>";
 
 try {
 	$conn = new PDO("mysql:host=$host;dbname=$db_name", $username, $password);
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $e) {
-	echo "Connection failed: " . $e->getMessage() . "<br>";
+	echo "Connection failed: " . $e->getMessage() . "</br>";
 }
 
-$count = $_POST('count')
+$count = $_POST["counter"];
+//echo "Count: " . $count . "</br>";
+
 for ($i=0; $i<$count; $i++) {
 	$date = date('Y-m-d H:i:s', time());
 	$student_leader = $_POST["leader"];
