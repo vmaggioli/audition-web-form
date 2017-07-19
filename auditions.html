@@ -40,9 +40,9 @@
 <h1>2017 AAMB Trumpet Auditions </h1>
 </header>
 
-<form action="scripts/send.php" method="POST" onsubmit="return isValidForm()">
+<form action="scripts/send.php" method="POST" onsubmit="return checkValidForm()">
 <h3>Student Leader</h3>
-  <select name="leader">
+  <select id="leader" name="leader">
 	<option value=""></option>
     <option value="Alex_L">Alex L.</option>
 	<option value="Alex_K">Alex K.</option>
@@ -59,14 +59,14 @@
   </select>
 
 <div class="ui-widget">
-  <label for="student"><h3>Auditionees</h3></label>
+  <label for="student"><h3>Auditionee (Last,First)</h3></label>
   <input name="student" id="student">
 </div>
 
 <div id="wrapper">
   <div id="element1">
   <h3>Criteria</h3>
-    <select name="criteria1">
+    <select id="criteria1" name="criteria1">
   	   <option value=""></option>
       <option value="Guiding">Guiding</option>
       <option value="Low Chair">Low Chair</option>
@@ -76,8 +76,8 @@
     </select>
 
   <h3>Change</h3>
-    <input name="change1" type="radio" value="Better">Better<br>
-    <input name="change1" type="radio" value="Worse">Worse<br>
+    <input id="change1B" name="change1" type="radio" value="Better">Better<br>
+    <input id="change1W" name="change1" type="radio" value="Worse">Worse<br>
   <h3>Comments (optional)</h3>
   <textarea id="comments1" name="comments1" rows="4" cols="25" maxlength="100"></textarea>
 
