@@ -3,9 +3,9 @@ var count = 2;
 function add_criteria() {
   var wrapper = document.getElementById('wrapper');
   var newChild = document.createElement('div');
-  newChild.innerHTML = '<h3>Criteria</h3><select id="criteria'+count+'" name="criteria'+count+'"><option value=""></option><option value="Guiding">Guiding</option><option value="Low Chair">Low Chair</option><option value="Mark Time">Mark Time</option><option value="High Chair">High Chair</option><option value="Flanks">Flanks</option></select><h3>Change</h3><input id="change'+count+'B" name="change'+count+'" type="radio" value="Better">Better<br><input id="change'+count+'W" name="change'+count+'"W"" type="radio" value="Worse">Worse<br><h3>Comments (optional)</h3><textarea id="comments'+count+'" name="comments'+count+'" rows="4" cols="25" maxlength="100" onkeydown="updateCharCount(this.name)"></textarea><br><hr>'
+  newChild.innerHTML = '<h3>Criteria</h3><select id="criteria'+count+'" name="criteria'+count+'"><option value=""></option><option value="Guiding">Guiding</option><option value="Low Chair">Low Chair</option><option value="Mark Time">Mark Time</option><option value="High Chair">High Chair</option><option value="Flanks">Flanks</option></select><h3>Change</h3><input id="change'+count+'B" name="change'+count+'" type="radio" value="Better">Better<br><input id="change'+count+'W" name="change'+count+'"W"" type="radio" value="Worse">Worse<br><h3>Comments (optional)</h3><textarea id="comments'+count+'" name="comments'+count+'" rows="4" cols="25" maxlength="100" onkeydown="updateCharCount(this.name)"></textarea><br><hr>';
   wrapper.appendChild(newChild);
-  addValidateListener(document.getElementById('comments'+count))
+  addValidateListener(document.getElementById('comments'+count));
   var val = document.getElementById("counter");
   val.setAttribute("value", count);
   count++;
@@ -46,8 +46,8 @@ function checkValidForm() {
 		isValidForm = false;
 	} else {
 		if (document.getElementById("auditioneeError") != null) {
-			var error = document.getElementById("auditioneeError");
-			error.parentNode.removeChild(error);
+			var auditErr = document.getElementById("auditioneeError");
+			auditErr.parentNode.removeChild(auditErr);
 		}
 	}
 	var hasEmptyCriteria = false;
@@ -80,14 +80,33 @@ function checkValidForm() {
 	}
 
 	if (document.getElementById("changeError") != null && !hasEmptyChange) {
-		var error = document.getElementById("changeError");
-		error.parentNode.removeChild(error);
+		var changeErr = document.getElementById("changeError");
+		changeErr.parentNode.removeChild(changeErr);
 	}
 
 	if (document.getElementById("criteriaError") != null && !hasEmptyCriteria) {
-		var error = document.getElementById("criteriaError");
-		error.parentNode.removeChild(error);
+		var critErr = document.getElementById("criteriaError");
+		critErr.parentNode.removeChild(critErr);
 	}
+  if (isValidForm) {
+    document.cookie = "leader=" + currentLeader.value;
+    var test = document.cookie;
+    window.location.reload();
+  }
+}
 
-	return isValidForm;
+function readCookie() {
+    var nameEQ = "leader=";
+    var ca = document.cookie;
+    if (ca.localeCompare("") == 0)
+      return null;
+    var c = ca.substring(nameEQ.length,ca.length);
+    return c;
+}
+
+function getCookie() {
+  var cachedLeader = readCookie();
+  if (cachedLeader != null)
+    document.getElementById("leader").value = cachedLeader;
+    document.getElementById("leader").value = "Kappa";
 }
