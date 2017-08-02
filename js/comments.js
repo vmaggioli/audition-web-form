@@ -107,6 +107,14 @@ function readCookie() {
 function getCookie() {
   var cachedLeader = readCookie();
   if (cachedLeader != null)
-    document.getElementById("leader").value = cachedLeader;
-    document.getElementById("leader").value = "Kappa";
+    var sel = document.getElementById("leader");
+	var opts = sel.options;
+	for (var opt, j = 0; opt = opts[j]; j++) {
+		var sub = cachedLeader.substring(0, cachedLeader.indexOf(";"));
+		if (opt.value === sub) {
+			sel.selectedIndex = j;
+			break;
+		}
+    }
+
 }
