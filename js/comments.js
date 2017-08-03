@@ -11,6 +11,12 @@ function add_criteria() {
   count++;
 }
 
+function addValidateListener(elementTextArea) {
+  elementTextArea.addEventListener('keydown',function() {
+    elementTextArea.value = elementTextArea.value.replace(";", "");
+  });
+}
+
 function checkValidForm() {
 	var currentLeader = document.getElementById("leader");
 	var currentAuditionee = document.getElementById("student");
@@ -29,6 +35,7 @@ function checkValidForm() {
 			error.parentNode.removeChild(error);
 		}
 	}
+
 
 	if (auditioneeValue.trim().localeCompare("") == 0) {
 		if (document.getElementById("auditioneeError") == null) {
@@ -81,10 +88,9 @@ function checkValidForm() {
 		var critErr = document.getElementById("criteriaError");
 		critErr.parentNode.removeChild(critErr);
 	}
-
   if (isValidForm)
     document.cookie = "leader=" + currentLeader.value;
-	return isValidForm;
+  return isValidForm;
 }
 
 function readCookie() {
@@ -98,15 +104,15 @@ function readCookie() {
 
 function getCookie() {
   var cachedLeader = readCookie();
-  if (cachedLeader != null) {
-    var sel = document.getElementById("leader");
-		var opts = sel.options;
-		for (var opt, j = 0; opt = opts[j]; j++) {
-			var sub = cachedLeader.substring(0, cachedLeader.indexOf(";"));
-			if (opt.value === sub) {
-				sel.selectedIndex = j;
-				break;
-			}
-  	}
-	}
+  if (cachedLeader == null)
+		return null;
+  var sel = document.getElementById("leader");
+  var opts = sel.options;
+	for (var opt, j = 0; opt = opts[j]; j++) {
+		var sub = cachedLeader.substring(0, cachedLeader.indexOf(";"));
+		if (opt.value === sub) {
+			sel.selectedIndex = j;
+			break;
+		}
+  }
 }
