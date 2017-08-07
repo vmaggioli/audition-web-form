@@ -88,11 +88,9 @@ function checkValidForm() {
 		var critErr = document.getElementById("criteriaError");
 		critErr.parentNode.removeChild(critErr);
 	}
-  if (isValidForm) {
+  if (isValidForm)
     document.cookie = "leader=" + currentLeader.value;
-    var test = document.cookie;
-    window.location.reload();
-  }
+  return isValidForm;
 }
 
 function readCookie() {
@@ -106,15 +104,15 @@ function readCookie() {
 
 function getCookie() {
   var cachedLeader = readCookie();
-  if (cachedLeader != null)
-    var sel = document.getElementById("leader");
-	var opts = sel.options;
+  if (cachedLeader == null)
+		return null;
+  var sel = document.getElementById("leader");
+  var opts = sel.options;
 	for (var opt, j = 0; opt = opts[j]; j++) {
 		var sub = cachedLeader.substring(0, cachedLeader.indexOf(";"));
 		if (opt.value === sub) {
 			sel.selectedIndex = j;
 			break;
 		}
-    }
-
+  }
 }
