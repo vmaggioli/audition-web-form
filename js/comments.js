@@ -11,12 +11,6 @@ function add_criteria() {
   count++;
 }
 
-function addValidateListener(elementTextArea) {
-  elementTextArea.addEventListener('keydown',function() {
-    elementTextArea.value = elementTextArea.value.replace(";", "");
-  });
-}
-
 function checkValidForm() {
 	var currentLeader = document.getElementById("leader");
 	var currentAuditionee = document.getElementById("student");
