@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+	background-color: #C28E0E;
+}
+h1 {
+	font-family: verdana;
+}
+textarea {
+	resize: none;
+}

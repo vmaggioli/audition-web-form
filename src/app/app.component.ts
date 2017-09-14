@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
   title = 'Purdue AAMB Selections';
   user = null;
   topics: FirebaseListObservable<any[]>;
+  public disabledLogin = false;
 
   constructor(
       private auth: AuthService,
@@ -22,8 +23,30 @@ export class AppComponent implements OnInit {
       (user) => this.user = user);
   }
 
+
   loginWithGoogle() {
-    this.auth.loginWithGoogle();
-    this.topics = this.db.list('/topics');
+    if (this.auth.getCurrentUser() != null) {
+      this.disabledLogin = true;
+      return;
+    }
+    this.auth.loginWithGoogle().then((result) => {
+      if (result != null) {
+        this.disabledLogin = true;
+      } else {
+        this.disabledLogin = false;
+      }
+      this.topics = this.db.list('/topics');
+    });
+  }
+
+  logoutWithGoogle() {
+    this.auth.logoutWithGoogle().then((result) => {
+      if (result != null) {
+        this.disabledLogin = true;
+      } else {
+        this.disabledLogin = false;
+      }
+    });
+
   }
 }

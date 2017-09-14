@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Router } from '@angular/router'
+import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 
@@ -18,6 +20,7 @@ export class AuthService {
       }
     });
   }
+
   getAuthState() {
     return this.authState;
   }
@@ -27,4 +30,11 @@ export class AuthService {
       new firebase.auth.GoogleAuthProvider());
   }
 
+  logoutWithGoogle() {
+    return this.afAuth.auth.signOut();
+  }
+
+  getCurrentUser() {
+    return this.currentUser;
+  }
 }
