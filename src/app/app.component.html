@@ -1,16 +1,1 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:left">
-  <h1>Welcome to {{title}}!</h1>
-  <div *ngIf="!disabledLogin">
-    <button (click)="loginWithGoogle();">Login with Google</button>
-  </div>
-  <div *ngIf="disabledLogin">
-    <button (click)="logoutWithGoogle();">Logout with Google</button>
-  </div>
-  <ul>
-    <li class="text" *ngFor="let topic of topics | async" >
-      {{topic.$value}}
-    </li>
-  </ul>
-  <leader-auditionee></leader-auditionee>
-</div>
+<router-outlet></router-outlet>

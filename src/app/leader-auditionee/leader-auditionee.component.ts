@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'leader-auditionee',
+  selector: 'app-leader-auditionee',
   templateUrl: './leader-auditionee.component.html'
 })
 
