@@ -11,8 +11,8 @@ import * as firebase from 'firebase/app';
 })
 
 export class WelcomeComponent implements OnInit {
-  title: 'AAMB Selections';
-  user = null;
+  title: string = 'AAMB Selections';
+  user: firebase.User = null;
   topics: FirebaseListObservable<any[]>;
 
   constructor(
