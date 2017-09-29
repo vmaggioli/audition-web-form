@@ -3,11 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LeaderAuditioneeComponent } from './leader-auditionee/leader-auditionee.component';
+import { LoginGuard } from './shared/login-guard.module';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   { path: 'welcome', component: WelcomeComponent },
-  { path: 'dashboard', component: LeaderAuditioneeComponent }
+  { path: 'dashboard', component: LeaderAuditioneeComponent, canActivate: [LoginGuard] }
 ];
 
 @NgModule({

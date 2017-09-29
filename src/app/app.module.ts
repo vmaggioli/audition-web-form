@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
+import { LoginGuard } from './shared/login-guard.module';
 import { AppComponent } from './app.component';
 import { JudgementComponent } from './judgement/judgement.component';
 import { LeaderAuditioneeComponent } from './leader-auditionee/leader-auditionee.component';
@@ -32,7 +33,10 @@ firebase.initializeApp(environment.firebase);
     AngularFireDatabaseModule,
     AngularFireAuthModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    LoginGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
