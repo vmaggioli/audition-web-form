@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { JudgementComponent } from '../judgement/judgement.component';
 import { FormsModule } from '@angular/forms';
 
 @Component({
