@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MdButtonModule } from '@angular/material';
 
 import { AuthService } from '../shared/auth.service';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
