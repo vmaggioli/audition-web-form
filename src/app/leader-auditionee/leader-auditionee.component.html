@@ -16,7 +16,9 @@
 </select>
 <h3>Auditionee</h3>
 <input type="text" id="auditionee" name="auditionee" placeholder="Name an auditionee"  required>
-<app-judgement></app-judgement>
-<input type="button" id="more_fields" (click)="add_criteria();" value="Add another comment"/>
+<div>
+	<template #target></template>
+</div>
+<input type="button" id="more_fields" (click)="putInMyHtml()" value="Add another comment"/>
 <br><br>
 <input type="submit" value="Submit"/>

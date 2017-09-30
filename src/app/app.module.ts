@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { DynamicModule } from './dynamic-module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { LoginGuard } from './shared/login-guard.module';
@@ -16,22 +17,22 @@ import { AuthService } from './shared/auth.service';
 import { environment } from '../environments/environment';
 import * as firebase from 'firebase';
 
-firebase.initializeApp(environment.firebase);
-
 @NgModule({
   declarations: [
     AppComponent,
-    JudgementComponent,
     LeaderAuditioneeComponent,
+    JudgementComponent,
     WelcomeComponent
   ],
+  entryComponents: [JudgementComponent],
   imports: [
     BrowserModule,
     RouterModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'audition-web-form'),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    DynamicModule.withComponents([JudgementComponent])
   ],
   providers: [
     AuthService,
