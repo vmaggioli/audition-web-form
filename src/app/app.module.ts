@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DynamicModule } from './dynamic-module';
+import { MdRadioModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { LoginGuard } from './shared/login-guard.module';
@@ -32,7 +34,9 @@ import * as firebase from 'firebase';
     AngularFireModule.initializeApp(environment.firebase, 'audition-web-form'),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    DynamicModule.withComponents([JudgementComponent])
+    DynamicModule.withComponents([JudgementComponent]),
+    MdRadioModule,
+    FormsModule
   ],
   providers: [
     AuthService,

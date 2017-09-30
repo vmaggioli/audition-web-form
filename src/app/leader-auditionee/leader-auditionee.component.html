@@ -1,24 +1,10 @@
 <h3>Student Leader</h3>
-<select id="leader" name="leader">
-	<option value=""></option>
-	<option value="Alex_L">Alex L.</option>
-	<option value="Alex_K">Alex K.</option>
-	<option value="Bobby">Bobby</option>
-	<option value="Cassie">Cassie</option>
-	<option value="Colin">Colin</option>
-	<option value="Jeremy">Jeremy</option>
-	<option value="JC">J.C.</option>
-	<option value="Kristin">Kristin</option>
-	<option value="Nick">Nick</option>
-	<option value="Ryan">Ryan</option>
-	<option value="Tim">Tim</option>
-	<option value="Vince">Vince</option>
-</select>
+<input (keyup)="onKeyLeader($event)" type="text" id="studentLeader" name="studentLeader" required>
 <h3>Auditionee</h3>
-<input type="text" id="auditionee" name="auditionee" placeholder="Name an auditionee"  required>
+<input (keyup)="onKeyAuditionee($event)" type="text" id="auditionee" name="auditionee" placeholder="Name an auditionee"  required>
 <div>
-	<template #target></template>
+	<ng-template #target></ng-template>
 </div>
 <input type="button" id="more_fields" (click)="putInMyHtml()" value="Add another comment"/>
 <br><br>
-<input type="submit" value="Submit"/>
+<input (click)="submitComment()" type="submit" value="Submit"/>
