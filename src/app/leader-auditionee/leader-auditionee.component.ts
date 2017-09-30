@@ -19,10 +19,12 @@ export class LeaderAuditioneeComponent {
     const div = document.createElement('div');
     const input = document.createElement('textarea');
     input.style.height = "150px";
-    input.placeholder = "leader_name_1, leader_name_2, etc.";
+    input.placeholder = "Leader 1\nLeader 2\netc.";
     input.onchange = this.handleTyping;
+
     const btn = document.createElement('button');
     btn.textContent = "Add";
+    btn.onclick = this.add;
 
     div.appendChild(input);
     div.appendChild(btn);
@@ -37,6 +39,20 @@ export class LeaderAuditioneeComponent {
         continue;
       }
       this.newLeaders.push({ name: list[i] });
+    }
+  }
+
+  add = (ev) => {
+    const select = document.getElementById('leader');
+    for (let i = 0; i < this.newLeaders.length; i++) {
+      if (!this.newLeaders[i]) {
+        continue;
+      }
+      console.log(this.newLeaders[i])
+      const opt = document.createElement('option');
+      opt.value = this.newLeaders[i].name;
+      opt.innerText = this.newLeaders[i].name;
+      select.appendChild(opt);
     }
   }
 }
