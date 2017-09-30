@@ -5,11 +5,15 @@ import { FormsModule } from '@angular/forms';
 
 import { Leaders } from './leader';
 import { DynamicModule } from '../dynamic-module';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
+
+import { LeaderAuditioneeService } from './leader-auditionee.service';
 
 @Component({
   selector: 'app-leader-auditionee',
-  templateUrl: './leader-auditionee.component.html'
+  templateUrl: './leader-auditionee.component.html',
+  providers: [ LeaderAuditioneeService ],
 })
   
 @NgModule({
@@ -24,22 +28,34 @@ import { AngularFireDatabase } from 'angularfire2/database';
 })
 
 export class LeaderAuditioneeComponent implements AfterViewInit {
+  leaders: Leaders[];
+  items: Observable<any[]>;
+
 	@ViewChild('target', { read: ViewContainerRef }) target: ViewContainerRef;
 	private judgementList: Array<ComponentRef<JudgementComponent>> = [];
 	private studentLeader = '';
 	private auditionee = '';
 
 	constructor(private cfr: ComponentFactoryResolver,
-							private db: AngularFireDatabase) { }
+              private db: AngularFireDatabase,
+              private las: LeaderAuditioneeService) {
+    this.items = db.list('/items');
+  }
 
 	ngAfterViewInit() {
-		this.putInMyHtml();
+    this.putInMyHtml();
+    this.getLeaders();
 	}
 
 	private putInMyHtml() {
 		let compFactory = this.cfr.resolveComponentFactory(JudgementComponent);
 		this.judgementList.push(this.target.createComponent(compFactory));
-	}
+  }
+  
+  getLeaders(): void {
+    this.las.getLeaders().then(leaders => this.leaders = leaders);
+    console.log(this.items);
+  }
 
 	onKeyLeader(event : any) {
 		this.studentLeader = event.target.value;
@@ -68,7 +84,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
 
 /**
   leaders = STUDENTLEADERS;
-  newLeaders: Leaders[];
+  
 
   removeAll() {
     const select = document.getElementById('leader');
@@ -124,19 +140,3 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
   }
   */
 }
-
-const STUDENTLEADERS: Leaders[] = [
-  {name: '--Select a Leader'},
-  {name: 'Alex L.'},
-  {name: 'Alex K.'},
-  {name: 'Bobby'},
-  {name: 'Cassie'},
-  {name: 'Colin'},
-  {name: 'Jeremy'},
-  {name: 'JC'},
-  {name: 'Kristin'},
-  {name: 'Nick'},
-  {name: 'Ryan'},
-  {name: 'Tim'},
-  {name: 'Vince'},
-];
