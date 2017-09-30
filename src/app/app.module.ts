@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DynamicModule } from './dynamic-module';
-import { MdRadioModule } from '@angular/material';
+import { MdButtonModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -35,7 +35,7 @@ import * as firebase from 'firebase';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     DynamicModule.withComponents([JudgementComponent]),
-    MdRadioModule,
+    MdButtonModule,
     FormsModule
   ],
   providers: [

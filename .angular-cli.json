@@ -19,7 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "audition-theme.scss"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
