@@ -11,6 +11,8 @@
 <h3>Auditionee</h3>
 <input (keyup)="onKeyAuditionee($event)" type="text" id="auditionee" name="auditionee" placeholder="Name an auditionee"  required/>
 
+<h1>{{ (item | async)?.name }}</h1>
+
 <div>
 	<ng-template #target></ng-template>
 </div>

@@ -7,12 +7,8 @@ import { Leaders } from './leader';
 
 @Injectable()
 export class LeaderAuditioneeService {
-  //items: Observable<any[]>;
-  constructor(db: AngularFireDatabase) {
-    console.log("db = " + db.database);
-  }
-  getLeaders(): Promise<Leaders[]> {
-    return Promise.resolve(STUDENTLEADERS);
+  getLeaders(): Leaders[] {
+    return STUDENTLEADERS;
   }
 }
 

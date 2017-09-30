@@ -29,33 +29,40 @@ import { LeaderAuditioneeService } from './leader-auditionee.service';
 
 export class LeaderAuditioneeComponent implements AfterViewInit {
   leaders: Leaders[];
-  items: Observable<any[]>;
 
 	@ViewChild('target', { read: ViewContainerRef }) target: ViewContainerRef;
 	private judgementList: Array<ComponentRef<JudgementComponent>> = [];
 	private studentLeader = '';
-	private auditionee = '';
+  private auditionee = '';
 
 	constructor(private cfr: ComponentFactoryResolver,
               private db: AngularFireDatabase,
               private las: LeaderAuditioneeService) {
-    this.items = db.list('/items');
   }
 
 	ngAfterViewInit() {
     this.putInMyHtml();
-    this.getLeaders();
+    this.leaders = this.las.getLeaders();
 	}
 
 	private putInMyHtml() {
 		let compFactory = this.cfr.resolveComponentFactory(JudgementComponent);
-		this.judgementList.push(this.target.createComponent(compFactory));
+    this.judgementList.push(this.target.createComponent(compFactory));
   }
-  
-  getLeaders(): void {
-    this.las.getLeaders().then(leaders => this.leaders = leaders);
-    console.log(this.items);
+
+
+
+
+
+  removeAll() {
+    this.db.object('Trumpets/Auditionees/').remove();
   }
+
+
+
+
+
+
 
 	onKeyLeader(event : any) {
 		this.studentLeader = event.target.value;
@@ -73,8 +80,8 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
 				criteria: instance.getCriteria(),
 				comment: instance.getComment()
 			};
-			this.db.object('Trumpets/Auditionees/' + this.auditionee + '/' + instance.getGoodOrBad()).set(newJudgement);
-		}
+			this.db.object(`Trumpets/Auditionees/${this.auditionee}/${instance.getGoodOrBad()}`).set(newJudgement);
+    }
 		this.target.clear();
 		this.judgementList = [];
 		this.putInMyHtml();
@@ -84,14 +91,6 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
 
 /**
   leaders = STUDENTLEADERS;
-  
-
-  removeAll() {
-    const select = document.getElementById('leader');
-    while (select.childElementCount > 1) {
-      select.removeChild(select.lastChild);
-    }
-  }
 
   addLeaders() {
     const rmadd = document.getElementById('rmadd');
