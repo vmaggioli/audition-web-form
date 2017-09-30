@@ -3,6 +3,10 @@
 
 <div id="addsls" style="margin:10px 0px;">
 	<button (click)="addLeaders()">Add leaders</button>
+	<div id="new div" style="display:none;">
+		<textarea (keyup)="handleTyping($event)" style="height:150px;" placeholder="Leader 1\nLeader 2\netc."></textarea>
+		<button (click)="add()">Add</button>
+	</div>
 </div>
 
 <h3>Auditionee</h3>

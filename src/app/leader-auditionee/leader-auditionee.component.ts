@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { JudgementComponent } from '../judgement/judgement.component';
 import { FormsModule } from '@angular/forms';
 
-import { Leaders } from './leader';
 import { DynamicModule } from '../dynamic-module';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
@@ -28,12 +27,11 @@ import { LeaderAuditioneeService } from './leader-auditionee.service';
 })
 
 export class LeaderAuditioneeComponent implements AfterViewInit {
-  leaders: Leaders[];
-
 	@ViewChild('target', { read: ViewContainerRef }) target: ViewContainerRef;
 	private judgementList: Array<ComponentRef<JudgementComponent>> = [];
 	private studentLeader = '';
   private auditionee = '';
+  private newLeaders: string[];
 
 	constructor(private cfr: ComponentFactoryResolver,
               private db: AngularFireDatabase,
@@ -42,7 +40,6 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
 
 	ngAfterViewInit() {
     this.putInMyHtml();
-    this.leaders = this.las.getLeaders();
 	}
 
 	private putInMyHtml() {
@@ -50,19 +47,31 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
     this.judgementList.push(this.target.createComponent(compFactory));
   }
 
+  addLeaders() {
+    document.getElementById('new div').style.display = "block";
+  }
+
+  handleTyping (event : any) {
+    this.newLeaders = event.target.value.split('\n');
+  }
+
+  private add() {
+    for (let i = 0; i < this.newLeaders.length; i++) {
+      if (this.newLeaders[i].length === 0) {
+        continue;
+      }
+      this.db.object(`Trumpets/StudentLeaders/${this.newLeaders[i]}`).set(this.newLeaders[i]);
+    }
+    document.getElementById('new div').style.display = "none";
+  }
+
   removeAllLeaders() {
-    this.db.object('Trumpets/Student Leaders/').remove();
+    this.db.object('Trumpets/StudentLeaders/').remove();
   }
 
   removeAllAuditionees() {
     this.db.object('Trumpets/Auditionees/').remove();
   }
-
-
-
-
-
-
 
 	onKeyLeader(event : any) {
 		this.studentLeader = event.target.value;
@@ -86,56 +95,4 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
 		this.judgementList = [];
 		this.putInMyHtml();
   }
-  
-
-
-/**
-  leaders = STUDENTLEADERS;
-
-  addLeaders() {
-    const rmadd = document.getElementById('rmadd');
-    const div = document.createElement('div');
-    div.id = "new div"
-
-    const input = document.createElement('textarea');
-    input.style.height = "150px";
-    input.placeholder = "Leader 1\nLeader 2\netc.";
-    input.onchange = this.handleTyping;
-
-    const btn = document.createElement('button');
-    btn.textContent = "Add";
-    btn.onclick = this.add;
-
-    div.appendChild(input);
-    div.appendChild(btn);
-    rmadd.appendChild(div);
-  }
-
-  handleTyping = (ev) => { // TODO split is too large
-    const list = ev.target.value.split('\n'); // split ==> array
-    this.newLeaders = new Array(list.length);
-    for (let i = 0; i < list.length; i++) {
-      if (list[i].length === 0) {
-        continue;
-      }
-      this.newLeaders.push({ name: list[i] });
-    }
-  }
-
-  add = (ev) => {
-    const select = document.getElementById('leader');
-    for (let i = 0; i < this.newLeaders.length; i++) {
-      if (!this.newLeaders[i]) {
-        continue;
-      }
-      const opt = document.createElement('option');
-      opt.value = this.newLeaders[i].name;
-      opt.innerText = this.newLeaders[i].name;
-      select.appendChild(opt);
-    }
-    const rmadd = document.getElementById('rmadd');
-    const div = document.getElementById('new div');
-    rmadd.removeChild(div);
-  }
-  */
 }
