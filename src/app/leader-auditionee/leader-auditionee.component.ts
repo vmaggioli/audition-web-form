@@ -14,9 +14,18 @@ export class LeaderAuditioneeComponent {
   leaders = STUDENTLEADERS;
   newLeaders: Leaders[];
 
+  removeAll() {
+    const select = document.getElementById('leader');
+    while (select.childElementCount > 1) {
+      select.removeChild(select.lastChild);
+    }
+  }
+
   addLeaders() {
     const rmadd = document.getElementById('rmadd');
     const div = document.createElement('div');
+    div.id = "new div"
+
     const input = document.createElement('textarea');
     input.style.height = "150px";
     input.placeholder = "Leader 1\nLeader 2\netc.";
@@ -48,17 +57,19 @@ export class LeaderAuditioneeComponent {
       if (!this.newLeaders[i]) {
         continue;
       }
-      console.log(this.newLeaders[i])
       const opt = document.createElement('option');
       opt.value = this.newLeaders[i].name;
       opt.innerText = this.newLeaders[i].name;
       select.appendChild(opt);
     }
+    const rmadd = document.getElementById('rmadd');
+    const div = document.getElementById('new div');
+    rmadd.removeChild(div);
   }
 }
 
 const STUDENTLEADERS: Leaders[] = [
-  {name: '              '},
+  {name: '--Select a Leader'},
   {name: 'Alex L.'},
   {name: 'Alex K.'},
   {name: 'Bobby'},
@@ -72,4 +83,3 @@ const STUDENTLEADERS: Leaders[] = [
   {name: 'Tim'},
   {name: 'Vince'},
 ];
-
