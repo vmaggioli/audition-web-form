@@ -55,7 +55,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
 				criteria: instance.getCriteria(),
 				comment: instance.getComment()
 			};
-			this.db.object('Trumpets/' + this.auditionee + '/' + instance.getGoodOrBad()).set(newJudgement);
+			this.db.object('Trumpets/Auditionees/' + this.auditionee + '/' + instance.getGoodOrBad()).set(newJudgement);
 		}
 		this.target.clear();
 		this.judgementList = [];
