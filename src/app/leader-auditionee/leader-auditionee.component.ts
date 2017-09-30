@@ -50,11 +50,11 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
     this.judgementList.push(this.target.createComponent(compFactory));
   }
 
+  removeAllLeaders() {
+    this.db.object('Trumpets/Student Leaders/').remove();
+  }
 
-
-
-
-  removeAll() {
+  removeAllAuditionees() {
     this.db.object('Trumpets/Auditionees/').remove();
   }
 

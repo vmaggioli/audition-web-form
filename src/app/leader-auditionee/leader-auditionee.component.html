@@ -1,17 +1,12 @@
 <h3>Student Leader</h3>
 <input (keyup)="onKeyLeader($event)" type="text" id="studentLeader" name="studentLeader" required/>
 
-<div id="rmadd">
-	<div class="new leader" style="margin:10px 0px;">
-		<button (click)="removeAll()">Remove all</button>
-		<button (click)="addLeaders()">Add leaders</button>
-	</div>
+<div id="addsls" style="margin:10px 0px;">
+	<button (click)="addLeaders()">Add leaders</button>
 </div>
 
 <h3>Auditionee</h3>
 <input (keyup)="onKeyAuditionee($event)" type="text" id="auditionee" name="auditionee" placeholder="Name an auditionee"  required/>
-
-<h1>{{ (item | async)?.name }}</h1>
 
 <div>
 	<ng-template #target></ng-template>
@@ -19,3 +14,8 @@
 <input type="button" id="more_fields" (click)="putInMyHtml()" value="Add another comment"/>
 <br><br>
 <input (click)="submitComment()" type="submit" value="Submit"/>
+
+<div id="reset">
+	<button (click)="removeAllLeaders()">Reset leaders</button>
+	<button (click)="removeAllAuditionees()">Reset auditionees</button>
+</div>
