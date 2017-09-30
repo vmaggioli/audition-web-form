@@ -1,21 +1,18 @@
 <h3>Student Leader</h3>
-<select id="leader" name="leader">
-	<option value=""></option>
-	<option value="Alex_L">Alex L.</option>
-	<option value="Alex_K">Alex K.</option>
-	<option value="Bobby">Bobby</option>
-	<option value="Cassie">Cassie</option>
-	<option value="Colin">Colin</option>
-	<option value="Jeremy">Jeremy</option>
-	<option value="JC">J.C.</option>
-	<option value="Kristin">Kristin</option>
-	<option value="Nick">Nick</option>
-	<option value="Ryan">Ryan</option>
-	<option value="Tim">Tim</option>
-	<option value="Vince">Vince</option>
+<select id="leader" name="leader" required>
+	<option *ngFor="let leader of leaders" value="{{leader.name}}">{{leader.name}}</option>
 </select>
+
+<div id="rmadd">
+	<div class="new leader" style="margin:10px 0px;">
+		<button>Remove all</button>
+		<button (click)="addLeaders()">Add leaders</button>
+	</div>
+</div>
+
 <h3>Auditionee</h3>
-<input type="text" id="auditionee" name="auditionee" placeholder="Name an auditionee"  required>
+<input type="text" id="auditionee" name="auditionee" placeholder="Name an auditionee" required/>
+
 <app-judgement></app-judgement>
 <input type="button" id="more_fields" (click)="add_criteria();" value="Add another comment"/>
 <br><br>
