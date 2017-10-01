@@ -49,7 +49,6 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
     this.putInMyHtml();
     this.leaders = this.las.getLeaders();
     this.auditionees = this.las.getAuditionees();
-    console.log(this.leaders, this.auditionees);
 	}
 
 	private putInMyHtml() {

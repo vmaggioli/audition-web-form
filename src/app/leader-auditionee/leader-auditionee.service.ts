@@ -12,20 +12,37 @@ export class LeaderAuditioneeService {
   leaders = new Array<Leader>();
   auditionees = new Array<Auditionee>();
 
-
-  // TODO - need to read from database/update lists even after constructor is called
   constructor(private db: AngularFireDatabase) {
+    this.leaders = this.getLeaders();
+    this.auditionees = this.getAuditionees();
+  }
+
+  getLeaders(): Leader[] {
     // val[i] == {$value: , $key: , $exists: }
-    db.list('Trumpets/StudentLeaders').subscribe(val => {
+    this.db.list('Trumpets/StudentLeaders').subscribe(val => {
       for (let i = 0; i < val.length; i++) {
+        let dup = 0;
         let leader = new Leader;
         leader.name = val[i].$value;
         leader.link = val[i].$key;
-        this.leaders.push(leader);
+        for (let j = 0; j < this.leaders.length; j++) {
+          if (this.leaders[j].name === leader.name) {
+            dup = 1;
+            break;
+          }
+        }
+        if (dup === 0) {
+          this.leaders.push(leader);
+        }
       }
     });
-    db.list('Trumpets/Auditionees').subscribe(val => {
+    return this.leaders;
+  }
+
+  getAuditionees(): Auditionee[] {
+    this.db.list('Trumpets/Auditionees').subscribe(val => {
       for (let i = 0; i < val.length; i++) {
+        let dup = 0;
         let auditionee = new Auditionee;
         auditionee.name = val[i].$key;
         const goodKeys = Object.keys(val[i].undefined); // TODO change when buttons are defined
@@ -36,16 +53,18 @@ export class LeaderAuditioneeService {
         for (let j = 0; j < badKeys.length; j++) {
           auditionee.bad.push(val[i].undefined[badKeys[j]]);
         }
-        this.auditionees.push(auditionee);
+        for (let k = 0; k < this.auditionees.length; k++) {
+          if (this.auditionees[k].name === auditionee.name) {
+            dup = 1;
+            this.auditionees[k] = auditionee;
+            break;
+          }
+        }
+        if (dup === 0) {
+          this.auditionees.push(auditionee);
+        }
       }
     });
-  }
-
-  getLeaders(): Leader[] {
-    return this.leaders;
-  }
-
-  getAuditionees(): Auditionee[] {
     return this.auditionees;
   }
 }
