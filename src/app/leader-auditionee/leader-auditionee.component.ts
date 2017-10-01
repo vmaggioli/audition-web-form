@@ -48,7 +48,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
 	ngAfterViewInit() {
     this.putInMyHtml();
     this.leaders = this.las.getLeaders("init");
-    this.auditionees = this.las.getAuditionees();
+    this.auditionees = this.las.getAuditionees("init");
 	}
 
 	private putInMyHtml() {
@@ -99,19 +99,19 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
       this.db.object(`Trumpets/StudentLeaders/${link}`).remove();
     }
     document.getElementById('new div 2').style.display = "none";
-    this.leaders = this.las.getLeaders("rm1");
+    this.leaders = this.las.getLeaders("rm");
     console.log(this.leaders, this.auditionees);
   }
 
   removeAllLeaders() {
     this.db.object('Trumpets/StudentLeaders/').remove();
-    this.leaders = this.las.getLeaders("rm");
+    this.leaders = this.las.getLeaders("clr");
     console.log(this.leaders, this.auditionees);
   }
 
   removeAllAuditionees() {
     this.db.object('Trumpets/Auditionees/').remove();
-    this.auditionees = this.las.getAuditionees();
+    this.auditionees = this.las.getAuditionees("clr");
     console.log(this.leaders, this.auditionees);
   }
 
@@ -140,7 +140,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
 		this.target.clear();
 		this.judgementList = [];
     this.putInMyHtml();
-    this.auditionees = this.las.getAuditionees();
+    this.auditionees = this.las.getAuditionees("add");
     console.log(this.leaders, this.auditionees);
   }
 }
