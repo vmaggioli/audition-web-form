@@ -47,7 +47,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
   
 	ngAfterViewInit() {
     this.putInMyHtml();
-    this.leaders = this.las.getLeaders();
+    this.leaders = this.las.getLeaders("init");
     this.auditionees = this.las.getAuditionees();
 	}
 
@@ -80,8 +80,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
       this.db.object(`Trumpets/StudentLeaders/${link}`).set(this.newLeaders[i]);
     }
     document.getElementById('new div').style.display = "none";
-    this.leaders = this.las.getLeaders();
-    console.log(this.leaders, this.auditionees);
+    this.leaders = this.las.getLeaders("add");
   }
 
   onKeyRemoveLeader (event : any) {
@@ -100,11 +99,13 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
       this.db.object(`Trumpets/StudentLeaders/${link}`).remove();
     }
     document.getElementById('new div 2').style.display = "none";
+    this.leaders = this.las.getLeaders("rm1");
+    console.log(this.leaders, this.auditionees);
   }
 
   removeAllLeaders() {
     this.db.object('Trumpets/StudentLeaders/').remove();
-    this.leaders = this.las.getLeaders();
+    this.leaders = this.las.getLeaders("rm");
     console.log(this.leaders, this.auditionees);
   }
 

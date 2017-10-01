@@ -13,11 +13,12 @@ export class LeaderAuditioneeService {
   auditionees = new Array<Auditionee>();
 
   constructor(private db: AngularFireDatabase) {
-    this.leaders = this.getLeaders();
+    this.leaders = this.getLeaders("init");
     this.auditionees = this.getAuditionees();
   }
 
-  getLeaders(): Leader[] {
+  getLeaders(arg): Leader[] {
+    if (arg === "rm") {}
     // val[i] == {$value: , $key: , $exists: }
     this.db.list('Trumpets/StudentLeaders').subscribe(val => {
       for (let i = 0; i < val.length; i++) {
