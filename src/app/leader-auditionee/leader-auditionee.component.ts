@@ -7,12 +7,9 @@ import { DynamicModule } from '../dynamic-module';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 
-import { LeaderAuditioneeService } from './leader-auditionee.service';
-
 @Component({
   selector: 'app-leader-auditionee',
   templateUrl: './leader-auditionee.component.html',
-  providers: [ LeaderAuditioneeService ],
 })
   
 @NgModule({
@@ -35,8 +32,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
   private removeLeaders: string[];
 
 	constructor(private cfr: ComponentFactoryResolver,
-              private db: AngularFireDatabase,
-              private las: LeaderAuditioneeService) {
+              private db: AngularFireDatabase) {
   }
 
 	ngAfterViewInit() {
