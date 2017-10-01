@@ -65,9 +65,12 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
       if (this.newLeaders[i].length === 0) {
         continue;
       }
-      this.db.object(`Trumpets/StudentLeaders/${this.newLeaders[i]}`).set(this.newLeaders[i]);
+      let link = this.newLeaders[i];
+      if (this.newLeaders[i].includes(".")) {
+        link = this.newLeaders[i].substring(0, this.newLeaders[i].indexOf('.')) + this.newLeaders[i].substring(this.newLeaders[i].indexOf('.') + 1);
+      }
+      this.db.object(`Trumpets/StudentLeaders/${link}`).set(this.newLeaders[i]);
     }
-    document.getElementById('new div').nodeValue = "";
     document.getElementById('new div').style.display = "none";
   }
 
@@ -80,9 +83,12 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
       if (this.removeLeaders[i].length === 0) {
         continue;
       }
-      this.db.object(`Trumpets/StudentLeaders/${this.removeLeaders[i]}`).remove();
+      let link = this.newLeaders[i];
+      if (this.newLeaders[i].includes(".")) {
+        link = this.newLeaders[i].substring(0, this.newLeaders[i].indexOf('.')) + this.newLeaders[i].substring(this.newLeaders[i].indexOf('.') + 1);
+      }
+      this.db.object(`Trumpets/StudentLeaders/${link}`).remove();
     }
-    document.getElementById('new div 2').nodeValue = "";
     document.getElementById('new div 2').style.display = "none";
   }
 
@@ -109,8 +115,12 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
 				studentLeader: this.studentLeader,
 				criteria: instance.getCriteria(),
 				comment: instance.getComment()
-			};
-			this.db.object(`Trumpets/Auditionees/${this.auditionee}/${instance.getGoodOrBad()}`).set(newJudgement);
+      };
+      let link = this.auditionee;
+      if (this.auditionee.includes(".")) {
+        link = this.auditionee.substring(0, this.auditionee.indexOf('.')) + this.auditionee.substring(this.auditionee.indexOf('.') + 1);
+      }
+			this.db.object(`Trumpets/Auditionees/${link}/${instance.getGoodOrBad()}`).set(newJudgement);
     }
 		this.target.clear();
 		this.judgementList = [];
