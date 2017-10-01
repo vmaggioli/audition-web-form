@@ -8,6 +8,7 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 import { Observable } from 'rxjs/Observable';
 
 import { Leader } from './leader';
+import { Auditionee } from './auditionee';
 import { LeaderAuditioneeService } from './leader-auditionee.service';
 
 @Component({
@@ -35,16 +36,20 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
   private newLeaders: string[];
   private removeLeaders: string[];
   leaders: Leader[];
+  auditionees: Auditionee[];
 
 	constructor(private cfr: ComponentFactoryResolver,
               private db: AngularFireDatabase,
               private las: LeaderAuditioneeService) {
   }
 
+  // TODO - fix updating lists in service
+  
 	ngAfterViewInit() {
     this.putInMyHtml();
     this.leaders = this.las.getLeaders();
-    console.log(this.leaders);
+    this.auditionees = this.las.getAuditionees();
+    console.log(this.leaders, this.auditionees);
 	}
 
 	private putInMyHtml() {
@@ -76,6 +81,8 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
       this.db.object(`Trumpets/StudentLeaders/${link}`).set(this.newLeaders[i]);
     }
     document.getElementById('new div').style.display = "none";
+    this.leaders = this.las.getLeaders();
+    console.log(this.leaders, this.auditionees);
   }
 
   onKeyRemoveLeader (event : any) {
@@ -98,10 +105,14 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
 
   removeAllLeaders() {
     this.db.object('Trumpets/StudentLeaders/').remove();
+    this.leaders = this.las.getLeaders();
+    console.log(this.leaders, this.auditionees);
   }
 
   removeAllAuditionees() {
     this.db.object('Trumpets/Auditionees/').remove();
+    this.auditionees = this.las.getAuditionees();
+    console.log(this.leaders, this.auditionees);
   }
 
 	onKeyLeader(event : any) {
@@ -124,10 +135,12 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
       if (this.auditionee.includes(".")) {
         link = this.auditionee.substring(0, this.auditionee.indexOf('.')) + this.auditionee.substring(this.auditionee.indexOf('.') + 1);
       }
-			this.db.object(`Trumpets/Auditionees/${link}/${instance.getGoodOrBad()}`).set(newJudgement);
+      this.db.list(`Trumpets/Auditionees/${link}/${instance.getGoodOrBad()}`).push(newJudgement);
     }
 		this.target.clear();
 		this.judgementList = [];
-		this.putInMyHtml();
+    this.putInMyHtml();
+    this.auditionees = this.las.getAuditionees();
+    console.log(this.leaders, this.auditionees);
   }
 }
