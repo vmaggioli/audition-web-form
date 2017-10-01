@@ -32,6 +32,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
 	private studentLeader = '';
   private auditionee = '';
   private newLeaders: string[];
+  private removeLeaders: string[];
 
 	constructor(private cfr: ComponentFactoryResolver,
               private db: AngularFireDatabase,
@@ -51,7 +52,11 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
     document.getElementById('new div').style.display = "block";
   }
 
-  handleTyping (event : any) {
+  oldLeaders() {
+    document.getElementById('new div 2').style.display = "block";
+  }
+
+  onKeyNewLeader (event : any) {
     this.newLeaders = event.target.value.split('\n');
   }
 
@@ -62,7 +67,23 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
       }
       this.db.object(`Trumpets/StudentLeaders/${this.newLeaders[i]}`).set(this.newLeaders[i]);
     }
+    document.getElementById('new div').nodeValue = "";
     document.getElementById('new div').style.display = "none";
+  }
+
+  onKeyRemoveLeader (event : any) {
+    this.removeLeaders = event.target.value.split('\n');
+  }
+
+  private remove() {
+    for (let i = 0; i < this.removeLeaders.length; i++) {
+      if (this.removeLeaders[i].length === 0) {
+        continue;
+      }
+      this.db.object(`Trumpets/StudentLeaders/${this.removeLeaders[i]}`).remove();
+    }
+    document.getElementById('new div 2').nodeValue = "";
+    document.getElementById('new div 2').style.display = "none";
   }
 
   removeAllLeaders() {

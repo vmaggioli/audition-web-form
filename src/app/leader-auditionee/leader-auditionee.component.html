@@ -3,9 +3,16 @@
 
 <div id="addsls" style="margin:10px 0px;">
 	<button (click)="addLeaders()">Add leaders</button>
+	<button (click)="oldLeaders()">Remove leaders</button>
+
 	<div id="new div" style="display:none;">
-		<textarea (keyup)="handleTyping($event)" style="height:150px;" placeholder="Leader 1\nLeader 2\netc."></textarea>
+		<textarea (keyup)="onKeyNewLeader($event)" style="height:150px;" placeholder="Names of SLs to be added (one name per line)"></textarea>
 		<button (click)="add()">Add</button>
+	</div>
+
+	<div id="new div 2" style="display:none;">
+		<textarea (keyup)="onKeyRemoveLeader($event)" style="height:150px;" placeholder="Names of SLs to be removed (one name per line)"></textarea>
+		<button (click)="remove()">Remove</button>
 	</div>
 </div>
 
