@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SignInErrorComponent } from './sign-in-error.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SignInErrorComponent', () => {
   let component: SignInErrorComponent;
@@ -8,7 +8,8 @@ describe('SignInErrorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SignInErrorComponent ]
+      declarations: [ SignInErrorComponent ],
+      imports: [ RouterTestingModule ]
     })
     .compileComponents();
   }));

@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { JudgementComponent } from './judgement.component';
+import { MatRadioModule } from '@angular/material';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, NgModel } from '@angular/forms';
 
 describe('JudgementComponent', () => {
   let component: JudgementComponent;
@@ -8,7 +10,12 @@ describe('JudgementComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ JudgementComponent ]
+      declarations: [ JudgementComponent ],
+      imports: [
+        BrowserModule,
+        FormsModule,
+        MatRadioModule
+      ],
     })
     .compileComponents();
   }));

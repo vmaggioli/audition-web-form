@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, OnInit, Input } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
+import { MdRadioButton, MdRadioGroup } from '@angular/material';
 
 @Component({
   selector: 'app-judgement',
