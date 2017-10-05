@@ -4,7 +4,7 @@ import { JudgementComponent } from '../judgement/judgement.component';
 import { FormsModule } from '@angular/forms';
 import { DynamicModule } from '../dynamic-module';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { MdRadioGroup } from '@angular/material';
+import { MdRadioModule } from '@angular/material';
 
 @Component({
   selector: 'app-leader-auditionee',
@@ -18,7 +18,10 @@ import { MdRadioGroup } from '@angular/material';
 	],
 	imports: [
 		BrowserModule,
-		DynamicModule.withComponents([JudgementComponent])
+		DynamicModule.withComponents([JudgementComponent]),
+    FormsModule,
+    BrowserModule,
+		MdRadioModule
 	],
 	entryComponents: [ JudgementComponent ]
 })

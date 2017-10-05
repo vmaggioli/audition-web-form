@@ -4,10 +4,11 @@ import { LeaderAuditioneeComponent } from './leader-auditionee.component';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { JudgementComponent } from '../judgement/judgement.component';
-import { MdRadioButton, MdRadioGroup } from '@angular/material';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, NgModel } from '@angular/forms';
 import { DynamicModule } from '../dynamic-module';
+import { MdRadioModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 describe('LeaderAuditioneeComponent', () => {
   let component: LeaderAuditioneeComponent;
@@ -27,14 +28,15 @@ describe('LeaderAuditioneeComponent', () => {
          LeaderAuditioneeComponent,
          JudgementComponent
        ],
+
       imports: [
         RouterTestingModule,
-        AngularFireModule.initializeApp(firebaseConfig),
+        MdRadioModule,
         FormsModule,
-        BrowserModule,
+        AngularFireDatabaseModule,
+        AngularFireModule.initializeApp(firebaseConfig),
         DynamicModule.withComponents([JudgementComponent])
       ],
-      providers: [ AngularFireDatabase ],
     })
     .compileComponents();
   }));
