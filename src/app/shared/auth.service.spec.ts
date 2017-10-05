@@ -5,8 +5,6 @@ import { AuthService } from './auth.service';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { VerifiedUserService } from './verified-users.service';
-import { STUDENTLEADERS } from '../student-leaders';
 import { WelcomeComponent } from '../welcome/welcome.component';
 import { SignInErrorComponent } from '../error/sign-in-error.component';
 

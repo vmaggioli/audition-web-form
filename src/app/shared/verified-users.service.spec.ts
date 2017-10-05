@@ -3,10 +3,10 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { AuthService } from './auth.service';
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { VerifiedUserService } from './verified-users.service';
-import { STUDENTLEADERS } from '../student-leaders';
+import { VerifiedUsersService } from './verified-users.service';
+import { VERIFIEDUSERS } from '../verified-users';
 import { WelcomeComponent } from '../welcome/welcome.component';
 import { SignInErrorComponent } from '../error/sign-in-error.component';
 
@@ -24,21 +24,27 @@ describe('VerifiedUserService', () => {
       TestBed.configureTestingModule({
           providers: [
               AngularFireAuth,
-              VerifiedUserService,
+              VerifiedUsersService,
               AuthService
           ],
-          imports: [ AngularFireModule.initializeApp(firebaseConfig) ]
+          imports: [
+            AngularFireModule.initializeApp(firebaseConfig),
+            AngularFireDatabaseModule
+           ]
       });
     });
 
-    it('verify list is valid', inject([VerifiedUserService], (service: VerifiedUserService) => {
-      var check = false;
-      for (var item in STUDENTLEADERS) {
-          if(item == this.auth.getCurrentUser().uid){
-              check = true;
-              break;
+    it('verify list is valid', inject([VerifiedUsersService, AngularFireDatabase], (service: VerifiedUsersService, db: AngularFireDatabase) => {
+      var check = true;
+      var list = service.getVerifiedUsers();
+      list.forEach((uids) => {
+        for (var uid in uids) {
+          if (VERIFIEDUSERS.indexOf(uid) == -1) {
+            check = false;
+            break;
           }
-      }
+        }
+      });
       expect(check).toBeTruthy();
     }));
 

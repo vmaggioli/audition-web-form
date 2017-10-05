@@ -1,5 +1,6 @@
-import { Component, AfterViewInit, OnInit, Input } from '@angular/core';
+import { Component, AfterViewInit, OnInit} from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
+import { MdRadioModule } from '@angular/material';
 
 @Component({
   selector: 'app-judgement',

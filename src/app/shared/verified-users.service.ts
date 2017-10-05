@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
-import { STUDENTLEADERS } from '../student-leaders';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { VERIFIEDUSERS } from '../verified-users';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 @Injectable()
-export class VerifiedUserService {
-  getVerifiedUsers(): string[] {
-    return STUDENTLEADERS;
+export class VerifiedUsersService {
+
+  constructor(private db: AngularFireDatabase) { }
+
+  getVerifiedUsers(): FirebaseListObservable<string[]> {
+    return this.db.list('VerifiedUsers');
   }
 }

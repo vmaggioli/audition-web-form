@@ -19,7 +19,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AuthService } from './shared/auth.service';
 import { environment } from '../environments/environment';
 import * as firebase from 'firebase';
-import { VerifiedUserService } from './shared/verified-users.service';
+import { VerifiedUsersService } from './shared/verified-users.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import { VerifiedUserService } from './shared/verified-users.service';
     WelcomeComponent,
     SignInErrorComponent
   ],
-  entryComponents: [JudgementComponent],
+  entryComponents: [ JudgementComponent ],
   imports: [
     BrowserModule,
     RouterModule,
@@ -44,7 +44,7 @@ import { VerifiedUserService } from './shared/verified-users.service';
   providers: [
     AuthService,
     LoginGuard,
-    VerifiedUserService
+    VerifiedUsersService
   ],
   bootstrap: [AppComponent]
 })
