@@ -7,7 +7,12 @@ export class VerifiedUsersService {
 
   constructor(private db: AngularFireDatabase) { }
 
-  getVerifiedUsers(): FirebaseListObservable<string[]> {
-    return this.db.list('VerifiedUsers');
+  getVerifiedUsers(uid: string): FirebaseListObservable<string[]> {
+    return this.db.list('VerifiedUsers', {
+      query: {
+        orderByChild: 'uid',
+        equalTo: uid
+      }
+    });
   }
 }

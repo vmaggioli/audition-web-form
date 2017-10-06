@@ -16,7 +16,6 @@ import * as firebase from 'firebase/app';
 export class WelcomeComponent implements OnInit {
   user: firebase.User = null;
   topics: FirebaseListObservable<any[]>;
-  verifiedUsers: FirebaseListObservable<string[]>;
 
   constructor(
       private auth: AuthService,
@@ -27,25 +26,19 @@ export class WelcomeComponent implements OnInit {
   ngOnInit() {
     this.auth.getAuthState().subscribe(
       (user) => this.user = user);
-    this.verifiedUsers = this.verUser.getVerifiedUsers();
-    this.verifiedUsers.forEach((data) => {
-      for (var item of data)
-        console.log(data + " : " + item);
-    })
   }
 
   loginWithGoogle() {
     this.auth.loginWithGoogle().then((result) => {
-      if (this.auth.getCurrentUser() != null) {
-      this.verifiedUsers.forEach((data) => {
-          console.log("here");
-          console.log(data);
-          for (var item in data) {
-
-            console.log(item.toString());
-          }
-        });
-      }
+      var list = this.verUser.getVerifiedUsers(this.auth.getCurrentUser().uid);
+      list.forEach(data => {
+        console.log(data.length);
+        if (data.length == 0) {
+            this.router.navigateByUrl('error');
+        } else {
+          this.router.navigateByUrl('dashboard');
+        }
+      });
     });
   }
 }
