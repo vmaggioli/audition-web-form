@@ -27,7 +27,7 @@ import { VerifiedUsersService } from './shared/verified-users.service';
     LeaderAuditioneeComponent,
     JudgementComponent,
     WelcomeComponent,
-    SignInErrorComponent
+    SignInErrorComponent,
   ],
   entryComponents: [ JudgementComponent ],
   imports: [
@@ -39,12 +39,12 @@ import { VerifiedUsersService } from './shared/verified-users.service';
     AngularFireAuthModule,
     DynamicModule.withComponents([JudgementComponent]),
     MdButtonModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
     AuthService,
     LoginGuard,
-    VerifiedUsersService
+    VerifiedUsersService,
   ],
   bootstrap: [AppComponent]
 })
