@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { VERIFIEDUSERS } from '../verified-users';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 @Injectable()

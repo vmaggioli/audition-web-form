@@ -32,7 +32,6 @@ export class WelcomeComponent implements OnInit {
     this.auth.loginWithGoogle().then((result) => {
       var list = this.verUser.getVerifiedUsers(this.auth.getCurrentUser().uid);
       list.forEach(data => {
-        console.log(data.length);
         if (data.length == 0) {
             this.router.navigateByUrl('error');
         } else {
