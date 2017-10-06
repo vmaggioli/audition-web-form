@@ -1,5 +1,6 @@
-import { Component, AfterViewInit, OnInit, Input } from '@angular/core';
+import { Component, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
+import { MdRadioModule } from '@angular/material';
 
 @Component({
   selector: 'app-judgement',
@@ -12,10 +13,11 @@ export class JudgementComponent implements AfterViewInit {
   private comment: string;
   private goodOrBad: string;
 
-  constructor() { }
+  constructor(private cdr: ChangeDetectorRef) { }
 
   ngAfterViewInit() {
     this.goodOrBad = '';
+    this.cdr.detectChanges();
   }
 
   onKeyCriteria(event : any) {

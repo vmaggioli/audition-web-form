@@ -1,19 +1,42 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LeaderAuditioneeComponent } from './leader-auditionee.component';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireModule } from 'angularfire2';
 import { JudgementComponent } from '../judgement/judgement.component';
+import { DynamicModule } from '../dynamic-module';
+import { MdRadioModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 describe('LeaderAuditioneeComponent', () => {
   let component: LeaderAuditioneeComponent;
   let fixture: ComponentFixture<LeaderAuditioneeComponent>;
+  const firebaseConfig = {
+    apiKey: "AIzaSyAmDhvEdGwMZ6SuZKibrUAVHCpR0DFpnXo",
+    authDomain: "audition-web-form.firebaseapp.com",
+    databaseURL: "https://audition-web-form.firebaseio.com",
+    projectId: "audition-web-form",
+    storageBucket: "audition-web-form.appspot.com",
+    messagingSenderId: "32575069764"
+  }
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        LeaderAuditioneeComponent,
-        JudgementComponent
+         LeaderAuditioneeComponent,
+         JudgementComponent
+       ],
+
+      imports: [
+        RouterTestingModule,
+        MdRadioModule,
+        FormsModule,
+        AngularFireDatabaseModule,
+        AngularFireModule.initializeApp(firebaseConfig),
+        DynamicModule.withComponents([JudgementComponent])
       ],
-      imports: [ RouterTestingModule,]
     })
     .compileComponents();
   }));

@@ -5,6 +5,7 @@ import { AuthService } from '../shared/auth.service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
+import { VerifiedUsersService } from '../shared/verified-users.service';
 import * as firebase from 'firebase/app';
 
 describe('WelcomeComponent', () => {
@@ -22,11 +23,14 @@ describe('WelcomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ WelcomeComponent ],
-      imports: [ RouterTestingModule,
+      imports: [
+        RouterTestingModule,
         AngularFireModule.initializeApp(firebaseConfig) ],
-      providers: [ AuthService,
+      providers: [
+        AuthService,
         AngularFireAuth,
-        AngularFireDatabase
+        AngularFireDatabase,
+        VerifiedUsersService
        ]
     })
     .compileComponents();

@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { JudgementComponent } from './judgement/judgement.component';
 import { LeaderAuditioneeComponent } from './leader-auditionee/leader-auditionee.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { SignInErrorComponent } from './error/sign-in-error.component'
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -18,15 +19,17 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AuthService } from './shared/auth.service';
 import { environment } from '../environments/environment';
 import * as firebase from 'firebase';
+import { VerifiedUsersService } from './shared/verified-users.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     LeaderAuditioneeComponent,
     JudgementComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    SignInErrorComponent,
   ],
-  entryComponents: [JudgementComponent],
+  entryComponents: [ JudgementComponent ],
   imports: [
     BrowserModule,
     RouterModule,
@@ -36,11 +39,12 @@ import * as firebase from 'firebase';
     AngularFireAuthModule,
     DynamicModule.withComponents([JudgementComponent]),
     MdButtonModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
     AuthService,
-    LoginGuard
+    LoginGuard,
+    VerifiedUsersService,
   ],
   bootstrap: [AppComponent]
 })

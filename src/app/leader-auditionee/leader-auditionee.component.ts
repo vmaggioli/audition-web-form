@@ -1,9 +1,10 @@
-import { Component, NgModule, ComponentFactoryResolver, ViewContainerRef, ViewChild, AfterViewInit, ComponentRef } from '@angular/core';
+import { Component, NgModule, ComponentFactoryResolver, ViewContainerRef, ViewChild, AfterViewInit, ComponentRef, ChangeDetectorRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { JudgementComponent } from '../judgement/judgement.component';
 import { FormsModule } from '@angular/forms';
 import { DynamicModule } from '../dynamic-module';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { MdRadioModule } from '@angular/material';
 
 @Component({
   selector: 'app-leader-auditionee',
@@ -17,8 +18,12 @@ import { AngularFireDatabase } from 'angularfire2/database';
 	],
 	imports: [
 		BrowserModule,
-		DynamicModule.withComponents([JudgementComponent])
-	]
+		DynamicModule.withComponents([JudgementComponent]),
+    FormsModule,
+    BrowserModule,
+		MdRadioModule,
+	],
+	entryComponents: [ JudgementComponent ]
 })
 
 export class LeaderAuditioneeComponent implements AfterViewInit {
@@ -28,7 +33,8 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
 	private auditionee = '';
 
 	constructor(private cfr: ComponentFactoryResolver,
-							private db: AngularFireDatabase) { }
+							private db: AngularFireDatabase,
+							private cdr: ChangeDetectorRef) { }
 
 	ngAfterViewInit() {
 		this.putInMyHtml();
@@ -37,6 +43,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
 	private putInMyHtml() {
 		let compFactory = this.cfr.resolveComponentFactory(JudgementComponent);
 		this.judgementList.push(this.target.createComponent(compFactory));
+		this.cdr.detectChanges();
 	}
 
 	onKeyLeader(event : any) {
