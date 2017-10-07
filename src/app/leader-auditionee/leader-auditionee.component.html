@@ -1,5 +1,7 @@
 <h3>Student Leader</h3>
-<input (keyup)="onKeyLeader($event)" type="text" id="studentLeader" name="studentLeader" required>
+<md-select placeholder="Student Leader" required>
+	<md-option *ngFor="let obj of slList" [value]="obj.name">{{obj.name}}</md-option>
+</md-select>
 <h3>Auditionee</h3>
 <input (keyup)="onKeyAuditionee($event)" type="text" id="auditionee" name="auditionee" placeholder="Name an auditionee"  required>
 <div>

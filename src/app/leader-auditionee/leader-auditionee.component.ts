@@ -1,10 +1,12 @@
-import { Component, NgModule, ComponentFactoryResolver, ViewContainerRef, ViewChild, AfterViewInit, ComponentRef, ChangeDetectorRef } from '@angular/core';
+import { Component, NgModule, OnInit, ComponentFactoryResolver, ViewContainerRef, ViewChild, AfterViewInit, ComponentRef, ChangeDetectorRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { JudgementComponent } from '../judgement/judgement.component';
 import { FormsModule } from '@angular/forms';
 import { DynamicModule } from '../dynamic-module';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { MdRadioModule } from '@angular/material';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { MdRadioModule, MdSelectModule } from '@angular/material';
+import { StudentLeadersService } from '../shared/student-leaders.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-leader-auditionee',
@@ -22,19 +24,28 @@ import { MdRadioModule } from '@angular/material';
     FormsModule,
     BrowserModule,
 		MdRadioModule,
+    MdSelectModule
 	],
 	entryComponents: [ JudgementComponent ]
 })
 
-export class LeaderAuditioneeComponent implements AfterViewInit {
+export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	@ViewChild('target', { read: ViewContainerRef }) target: ViewContainerRef;
 	private judgementList: Array<ComponentRef<JudgementComponent>> = [];
-	private studentLeader = '';
 	private auditionee = '';
+	private slList: Array<any> = [];
 
 	constructor(private cfr: ComponentFactoryResolver,
 							private db: AngularFireDatabase,
-							private cdr: ChangeDetectorRef) { }
+							private cdr: ChangeDetectorRef,
+							private service: StudentLeadersService) { }
+
+	ngOnInit() {
+		var slFirebase = this.service.getStudentLeaders();
+		slFirebase.subscribe(leaders => {
+			this.slList = leaders;
+		});
+	}
 
 	ngAfterViewInit() {
 		this.putInMyHtml();
@@ -46,10 +57,6 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
 		this.cdr.detectChanges();
 	}
 
-	onKeyLeader(event : any) {
-		this.studentLeader = event.target.value;
-	}
-
 	onKeyAuditionee(event : any) {
 		this.auditionee = event.target.value;
 	}
@@ -58,7 +65,6 @@ export class LeaderAuditioneeComponent implements AfterViewInit {
 		for (var item of this.judgementList) {
 			var instance = item.instance;
 			var newJudgement = {
-				studentLeader: this.studentLeader,
 				criteria: instance.getCriteria(),
 				comment: instance.getComment()
 			};
