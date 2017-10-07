@@ -4,7 +4,7 @@ import { JudgementComponent } from '../judgement/judgement.component';
 import { FormsModule } from '@angular/forms';
 import { DynamicModule } from '../dynamic-module';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { MdRadioModule } from '@angular/material';
+import { MatRadioModule } from '@angular/material';
 
 @Component({
   selector: 'app-leader-auditionee',
@@ -21,7 +21,7 @@ import { MdRadioModule } from '@angular/material';
 		DynamicModule.withComponents([JudgementComponent]),
     FormsModule,
     BrowserModule,
-		MdRadioModule,
+		MatRadioModule,
 	],
 	entryComponents: [ JudgementComponent ]
 })

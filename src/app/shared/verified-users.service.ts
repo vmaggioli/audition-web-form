@@ -1,17 +1,13 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import * as Firebase from 'firebase';
 
 @Injectable()
 export class VerifiedUsersService {
 
   constructor(private db: AngularFireDatabase) { }
 
-  getVerifiedUsers(uid: string): FirebaseListObservable<string[]> {
-    return this.db.list('VerifiedUsers', {
-      query: {
-        orderByChild: 'uid',
-        equalTo: uid
-      }
-    });
+  getVerifiedUsers(): AngularFireList<string[]> {
+    return this.db.list('VerifiedUsers');
   }
 }

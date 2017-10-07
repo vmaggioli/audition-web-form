@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DynamicModule } from './dynamic-module';
-import { MdButtonModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -38,7 +38,7 @@ import { VerifiedUsersService } from './shared/verified-users.service';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     DynamicModule.withComponents([JudgementComponent]),
-    MdButtonModule,
+    MatButtonModule,
     FormsModule,
   ],
   providers: [
