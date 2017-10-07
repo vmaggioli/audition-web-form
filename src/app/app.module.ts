@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DynamicModule } from './dynamic-module';
-import { MdButtonModule, MdSelectModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -40,7 +40,7 @@ import { StudentLeadersService } from './shared/student-leaders.service';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     DynamicModule.withComponents([JudgementComponent]),
-    MdButtonModule,
+    MatButtonModule,
     FormsModule,
     MdSelectModule,
     BrowserAnimationsModule

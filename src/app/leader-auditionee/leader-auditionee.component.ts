@@ -3,10 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { JudgementComponent } from '../judgement/judgement.component';
 import { FormsModule } from '@angular/forms';
 import { DynamicModule } from '../dynamic-module';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import { MdRadioModule, MdSelectModule } from '@angular/material';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { MatRadioModule } from '@angular/material';
 import { StudentLeadersService } from '../shared/student-leaders.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-leader-auditionee',
@@ -23,8 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 		DynamicModule.withComponents([JudgementComponent]),
     FormsModule,
     BrowserModule,
-		MdRadioModule,
-    MdSelectModule
+		MatRadioModule,
 	],
 	entryComponents: [ JudgementComponent ]
 })

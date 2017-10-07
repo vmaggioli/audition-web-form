@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
-import { MdRadioModule } from '@angular/material';
+import { MatRadioModule } from '@angular/material';
 
 @Component({
   selector: 'app-judgement',
