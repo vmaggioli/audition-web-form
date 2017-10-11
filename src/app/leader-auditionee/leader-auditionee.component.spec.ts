@@ -5,10 +5,12 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { JudgementComponent } from '../judgement/judgement.component';
 import { DynamicModule } from '../dynamic-module';
-import { MdRadioModule } from '@angular/material';
-import { FormsModule } from '@angular/forms';
+import { MatOptionModule, MatAutocompleteModule, MatRadioModule, MatSelectModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { StudentLeadersService } from '../shared/student-leaders.service';
+import { AuditioneesService } from '../shared/auditionees.service';
 
 describe('LeaderAuditioneeComponent', () => {
   let component: LeaderAuditioneeComponent;
@@ -31,12 +33,21 @@ describe('LeaderAuditioneeComponent', () => {
 
       imports: [
         RouterTestingModule,
-        MdRadioModule,
+        MatOptionModule,
+        MatAutocompleteModule,
+        MatRadioModule,
+        MatSelectModule,
         FormsModule,
         AngularFireDatabaseModule,
         AngularFireModule.initializeApp(firebaseConfig),
-        DynamicModule.withComponents([JudgementComponent])
+        DynamicModule.withComponents([JudgementComponent]),
+        ReactiveFormsModule,
+        BrowserModule
       ],
+      providers: [
+        StudentLeadersService,
+        AuditioneesService
+      ]
     })
     .compileComponents();
   }));

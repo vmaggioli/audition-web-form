@@ -1,9 +1,16 @@
 <h3>Student Leader</h3>
-<md-select placeholder="Student Leader" required>
-	<md-option *ngFor="let obj of slList" [value]="obj.name">{{obj.name}}</md-option>
-</md-select>
+<mat-select placeholder="Student Leader" [ngModel]="this.studentLeader" required>
+	<mat-option *ngFor="let obj of slList | async" [value]="obj.name">
+		{{obj.name}}
+	</mat-option>
+</mat-select>
 <h3>Auditionee</h3>
-<input (keyup)="onKeyAuditionee($event)" type="text" id="auditionee" name="auditionee" placeholder="Name an auditionee"  required>
+	<input matInput type="text" placeholder="Name an auditionee" [ngModel]="this.auditionee" [formControl]="myControl" [matAutocomplete]="auto" required>
+	<mat-autocomplete #auto="matAutocomplete">
+		<mat-option *ngFor="let auditionee of filteredOptions | async" [value]="auditionee">
+			{{auditionee}}
+		</mat-option>
+	</mat-autocomplete>
 <div>
 	<ng-template #target></ng-template>
 </div>
