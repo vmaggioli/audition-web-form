@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DynamicModule } from './dynamic-module';
-import { MatInputModule, MatButtonModule, MatSelectModule, MatAutocompleteModule, MatOptionModule } from '@angular/material';
+import { MatInputModule, MatButtonModule, MatSelectModule, MatAutocompleteModule, MatOptionModule, MatRadioModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -48,7 +48,8 @@ import { AuditioneesService } from './shared/auditionees.service';
     ReactiveFormsModule,
     MatAutocompleteModule,
     MatOptionModule,
-    MatInputModule
+    MatInputModule,
+    MatRadioModule,
   ],
   providers: [
     AuthService,

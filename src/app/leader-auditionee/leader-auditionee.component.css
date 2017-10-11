@@ -1,0 +1,8 @@
+.leaderAuditionee {
+  display: flex;
+  flex-direction: column;
+}
+
+.leaderAuditionee > * {
+  width: 100%;
+}

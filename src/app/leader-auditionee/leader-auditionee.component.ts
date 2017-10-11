@@ -4,7 +4,7 @@ import { JudgementComponent } from '../judgement/judgement.component';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { DynamicModule } from '../dynamic-module';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { MatInput, MatAutocomplete, MatSelect } from '@angular/material';
+import { MatInput, MatAutocomplete, MatSelect, MatFormField, MatButton } from '@angular/material';
 import { StudentLeadersService } from '../shared/student-leaders.service';
 import { Observable } from 'rxjs/Observable';
 import { AuditioneesService } from '../shared/auditionees.service';
@@ -66,11 +66,17 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	private submitComment() {
 		for (var item of this.judgementList) {
 			var instance = item.instance;
+			console.log(this.studentLeader);
+			console.log(this.auditionee);
+      console.log(instance.getCriteria());
+			console.log(instance.getGoodOrBad());
+			console.log(instance.getComment());
 			var newJudgement = {
+				studentLeader: this.studentLeader,
 				criteria: instance.getCriteria(),
 				comment: instance.getComment()
 			};
-			this.db.object('Trumpets/Auditionees/' + this.auditionee + '/' + instance.getGoodOrBad()).set(newJudgement);
+			this.db.list('Trumpets/Comments/' + this.auditionee + '/' + instance.getGoodOrBad()).push(newJudgement);
 		}
 		this.target.clear();
 		this.judgementList = [];

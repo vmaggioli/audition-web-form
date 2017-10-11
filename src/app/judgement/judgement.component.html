@@ -1,8 +1,23 @@
-<h3>Criteria</h3>
-  <input (keyup)="onKeyCriteria($event)" type="text" id="criteria" required>
-<h3>Change</h3>
-<button value="Good">Good</button>
-<button value="Bad">Bad</button>
-<h3>Comments (optional)</h3>
-<textarea (keyup)="onKeyComment($event)" id="comments" name="comments" rows="4" cols="25" maxlength="100"></textarea>
-<br><hr>
+<div class="judgement">
+  <mat-form-field>
+    <mat-select placeholder="Criteria" [(ngModel)]="criteria" required>
+      <mat-option *ngFor="let crit of this.CRITERIAS" [value]="crit">
+        {{crit}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <br><br>
+
+  <mat-radio-group [(ngModel)]="this.goodOrBad" required>
+    <mat-radio-button value="Good">Good</mat-radio-button>
+    <mat-radio-button value="Bad">Bad</mat-radio-button>
+  </mat-radio-group>
+
+  <br><br>
+
+  <mat-form-field>
+    <textarea matInput placeholder="Comment (optional)" [(ngModel)]="this.comment"></textarea>
+  </mat-form-field>
+  <br><hr>
+</div>
