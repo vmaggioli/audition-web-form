@@ -1,0 +1,24 @@
+audition-web-form
+	-> InstrumentSection
+		-> StudentLeaders
+			-> SL1 (String)
+			-> SL2 (String)
+			...
+		-> Auditionees
+			-> Student1
+				-> Good
+					-> studentLeader: String
+					-> critera: String
+					-> Comment: String(can be null)
+				-> Bad
+					-> studentLeader: String
+					-> critera: String
+					-> Comment: String(can be null)
+			-> Student2
+				-> Good
+				-> Bad
+			...
+	-> VerifiedUsers
+		-> UID1 (String)
+		-> UID2 (String)
+		...

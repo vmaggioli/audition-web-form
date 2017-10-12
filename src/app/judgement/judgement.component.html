@@ -1,0 +1,21 @@
+<div class="judgement">
+  <mat-select placeholder="Criteria" [(ngModel)]="criteria" name="criteria" required>
+    <mat-option *ngFor="let crit of this.CRITERIAS" [value]="crit">
+      {{crit}}
+    </mat-option>
+  </mat-select>
+
+  <br><br>
+
+  <mat-radio-group [(ngModel)]="goodOrBad" required>
+    <mat-radio-button value="Good">Good</mat-radio-button>
+    <mat-radio-button value="Bad">Bad</mat-radio-button>
+  </mat-radio-group>
+
+  <br><br>
+
+  <mat-form-field>
+    <textarea matInput placeholder="Comment (optional)" [(ngModel)]="this.comment"></textarea>
+  </mat-form-field>
+  <br><hr>
+</div>
