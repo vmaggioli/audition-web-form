@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { JudgementComponent } from './judgement.component';
-import { MatRadioModule } from '@angular/material';
+import { MatRadioModule, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, NgModel } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 
 describe('JudgementComponent', () => {
@@ -24,7 +25,13 @@ describe('JudgementComponent', () => {
         BrowserModule,
         FormsModule,
         MatRadioModule,
-        AngularFireModule.initializeApp(firebaseConfig)
+        AngularFireModule.initializeApp(firebaseConfig),
+        MatFormFieldModule,
+        MatOptionModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatInputModule,
+        BrowserAnimationsModule
       ],
     })
     .compileComponents();
