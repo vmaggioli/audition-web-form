@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { JudgementComponent } from './judgement.component';
-import { MdRadioModule } from '@angular/material';
+import { MatRadioModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, NgModel } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
@@ -23,7 +23,7 @@ describe('JudgementComponent', () => {
       imports: [
         BrowserModule,
         FormsModule,
-        MdRadioModule,
+        MatRadioModule,
         AngularFireModule.initializeApp(firebaseConfig)
       ],
     })

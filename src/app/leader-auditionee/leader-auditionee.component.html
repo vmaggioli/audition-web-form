@@ -1,10 +1,24 @@
-<h3>Student Leader</h3>
-<input (keyup)="onKeyLeader($event)" type="text" id="studentLeader" name="studentLeader" required>
-<h3>Auditionee</h3>
-<input (keyup)="onKeyAuditionee($event)" type="text" id="auditionee" name="auditionee" placeholder="Name an auditionee"  required>
-<div>
-	<ng-template #target></ng-template>
+<div class="leaderAuditionee">
+	<mat-form-field>
+		<mat-select placeholder="Student Leader" [(ngModel)]="studentLeader" required>
+			<mat-option *ngFor="let obj of slList | async" [value]="obj.name">
+				{{obj.name}}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+
+	<mat-form-field>
+		<input matInput type="text" placeholder="Auditionee" [(ngModel)]="auditionee" [formControl]="myControl" [matAutocomplete]="auto" required>
+		<mat-autocomplete #auto="matAutocomplete">
+			<mat-option *ngFor="let auditionee of filteredOptions | async" [value]="auditionee">
+				{{auditionee}}
+			</mat-option>
+		</mat-autocomplete>
+	</mat-form-field>
+	<div>
+		<ng-template #target></ng-template>
+	</div>
+	<button mat-button (click)="putInMyHtml()">Add another comment</button>
+	<br><br>
+	<button mat-button (click)="submitComment()" type="submit">Submit</button>
 </div>
-<input type="button" id="more_fields" (click)="putInMyHtml()" value="Add another comment"/>
-<br><br>
-<input (click)="submitComment()" type="submit" value="Submit"/>

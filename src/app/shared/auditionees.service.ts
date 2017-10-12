@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 
 @Injectable()
-export class VerifiedUsersService {
+export class AuditioneesService {
 
   constructor(private db: AngularFireDatabase) { }
 
-  getVerifiedUsers(): AngularFireList<any> {
-    return this.db.list('VerifiedUsers');
+  public getAuditionees(): AngularFireList<string[]> {
+    return this.db.list('Trumpets/Auditionees');
   }
 }

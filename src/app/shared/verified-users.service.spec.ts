@@ -34,24 +34,9 @@ describe('VerifiedUserService', () => {
     });
 
     it('verify list holds valid id', inject([VerifiedUsersService], (service: VerifiedUsersService) => {
-      var list = service.getVerifiedUsers('oA7Gf8e2iPYDpzXMdH3ete3oFFW2');
-      list.forEach(data => {
-          if (data.length == 0) {
-              expect(false).toBeTruthy();
-          } else {
-              expect(true).toBeTruthy();
-          }
+      var list = service.getVerifiedUsers().valueChanges().subscribe(data => {
+          expect(data).toContain("oA7Gf8e2iPYDpzXMdH3ete3oFFW2");
       });
-    }));
 
-    it('should deny bad id', inject([VerifiedUsersService], (service: VerifiedUsersService) => {
-        var list = service.getVerifiedUsers('Kappa');
-        list.forEach(data => {
-            if (data.length == 0) {
-                expect(true).toBeTruthy();
-            } else {
-                expect(false).toBeTruthy();
-            }
-        });
     }));
 });

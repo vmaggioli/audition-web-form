@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
-import { MatRadioModule } from '@angular/material';
+import { MatInput, MatRadioGroup, MatRadioButton, MatFormField, MatSelect } from '@angular/material';
+import { CRITERIA } from '../criteria';
 
 @Component({
   selector: 'app-judgement',
@@ -8,27 +9,32 @@ import { MatRadioModule } from '@angular/material';
 })
 
 export class JudgementComponent implements AfterViewInit {
+  readonly CRITERIAS = [
+    'Visual - Horn Angle',
+    'Visual - Posture',
+    'Visual - Knee Height',
+    'Visual - Mark Time',
+    'Visual - Not Bicycling',
+    'Visual - Toe Point',
+    'Movement - Steady Sound',
+    'Movement - Above the Waist',
+    'Movement - Below the Waist',
+    'Personal - Initiative',
+    'Personal - Attitude'
+  ];
   private section: string = 'Trumpets';
   private criteria: string;
   private comment: string;
-  private goodOrBad: string;
+  private goodOrBad: string = '';
 
   constructor(private cdr: ChangeDetectorRef) { }
 
+
   ngAfterViewInit() {
-    this.goodOrBad = '';
     this.cdr.detectChanges();
   }
 
-  onKeyCriteria(event : any) {
-    this.criteria = event.target.value;
-  }
-
-  onKeyComment(event : any) {
-    this.comment = event.target.value;
-  }
-
-  public getCriteria() : String { return this.criteria; }
-  public getGoodOrBad() : String { return this.goodOrBad; }
-  public getComment() : String { return this.comment; }
+  public getCriteria() : string { return this.criteria; }
+  public getGoodOrBad() : string { return this.goodOrBad; }
+  public getComment() : string { return this.comment; }
 }

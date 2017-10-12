@@ -1,0 +1,8 @@
+.judgement {
+  display: flex;
+  flex-direction: column;
+}
+
+.judgement > * {
+  width: 100%;
+}

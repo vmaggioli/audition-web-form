@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DynamicModule } from './dynamic-module';
-import { MatButtonModule } from '@angular/material';
-import { FormsModule } from '@angular/forms';
+import { MatInputModule, MatButtonModule, MatSelectModule, MatAutocompleteModule, MatOptionModule, MatRadioModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { LoginGuard } from './shared/login-guard.module';
@@ -20,6 +21,8 @@ import { AuthService } from './shared/auth.service';
 import { environment } from '../environments/environment';
 import * as firebase from 'firebase';
 import { VerifiedUsersService } from './shared/verified-users.service';
+import { StudentLeadersService } from './shared/student-leaders.service';
+import { AuditioneesService } from './shared/auditionees.service';
 
 @NgModule({
   declarations: [
@@ -40,11 +43,20 @@ import { VerifiedUsersService } from './shared/verified-users.service';
     DynamicModule.withComponents([JudgementComponent]),
     MatButtonModule,
     FormsModule,
+    MatSelectModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatOptionModule,
+    MatInputModule,
+    MatRadioModule,
   ],
   providers: [
     AuthService,
     LoginGuard,
     VerifiedUsersService,
+    StudentLeadersService,
+    AuditioneesService
   ],
   bootstrap: [AppComponent]
 })
