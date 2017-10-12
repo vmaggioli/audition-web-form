@@ -1,9 +1,11 @@
 <div class="judgement">
-  <mat-select placeholder="Criteria" [(ngModel)]="criteria" name="criteria" required>
-    <mat-option *ngFor="let crit of this.CRITERIAS" [value]="crit">
-      {{crit}}
-    </mat-option>
-  </mat-select>
+  <mat-form-field>
+    <mat-select placeholder="Criteria" [(ngModel)]="criteria" name="criteria" required>
+      <mat-option *ngFor="let crit of this.CRITERIAS" [value]="crit">
+        {{crit}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
   <br><br>
 
