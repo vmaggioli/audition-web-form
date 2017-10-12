@@ -4,7 +4,7 @@ import { JudgementComponent } from '../judgement/judgement.component';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { DynamicModule } from '../dynamic-module';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { MatInput, MatAutocomplete, MatSelect, MatFormField, MatButton } from '@angular/material';
+import { MatInput, MatAutocomplete, MatSelect, MatFormField, MatButton, MatOption } from '@angular/material';
 import { StudentLeadersService } from '../shared/student-leaders.service';
 import { Observable } from 'rxjs/Observable';
 import { AuditioneesService } from '../shared/auditionees.service';
