@@ -19,13 +19,13 @@ import 'rxjs/add/operator/filter';
 
 export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	@ViewChild('target', { read: ViewContainerRef }) target: ViewContainerRef;
-	private judgementList: Array<ComponentRef<JudgementComponent>> = [];
-	private studentLeader: string = '';
-	private auditionee: string = '';
-	private auditioneeList: Array<string> = [];
-	private slList: Observable<any>;
-	private myControl: FormControl = new FormControl();
-	private filteredOptions: Observable<string[]>;
+	public judgementList: Array<ComponentRef<JudgementComponent>> = [];
+	public studentLeader: string = '';
+	public auditionee: string = '';
+	public auditioneeList: Array<string> = [];
+	public slList: Observable<any>;
+	public myControl: FormControl = new FormControl();
+	public filteredOptions: Observable<string[]>;
 
 	constructor(private cfr: ComponentFactoryResolver,
 							private db: AngularFireDatabase,
@@ -57,13 +57,13 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 		this.putInMyHtml();
 	}
 
-	private putInMyHtml() {
+	public putInMyHtml() {
 		let compFactory = this.cfr.resolveComponentFactory(JudgementComponent);
 		this.judgementList.push(this.target.createComponent(compFactory));
 		this.cdr.detectChanges();
 	}
 
-	private submitComment() {
+	public submitComment() {
 		for (var item of this.judgementList) {
 			var instance = item.instance;
 			console.log(this.studentLeader);

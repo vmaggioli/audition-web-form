@@ -23,9 +23,9 @@ export class JudgementComponent implements AfterViewInit {
     'Personal - Attitude'
   ];
   private section: string = 'Trumpets';
-  private criteria: string;
-  private comment: string;
-  private goodOrBad: string = '';
+  public criteria: string;
+  public comment: string;
+  public goodOrBad: string = '';
 
   constructor(private cdr: ChangeDetectorRef) { }
 
