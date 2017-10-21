@@ -22,8 +22,8 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	public judgementList: Array<ComponentRef<JudgementComponent>> = [];
 	public studentLeader: string = '';
 	public auditionee: string = '';
-	public auditioneeList: Array<string> = [];
-	public slList: Observable<any>;
+	public auditioneeList: Array<any> = [];
+	public slList: Observable<string[]>;
 	public myControl: FormControl = new FormControl();
 	public filteredOptions: Observable<string[]>;
 
@@ -36,17 +36,18 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	ngOnInit() {
 		// fill student leaders list
 		this.slList = this.service.getStudentLeaders().valueChanges();
+		this.slList.forEach(data => {
+			console.log(data);
+		})
 
 		// fill auditionees list
 		this.auditService.getAuditionees().valueChanges().forEach(data => {
-			this.auditioneeList = [];
 			for (var item of data) {
-				this.auditioneeList.push(item['name']);
+				this.auditioneeList.push(item);
 			}
+			this.filteredOptions = this.myControl.valueChanges.startWith(null).map(val =>
+				val ? this.filter(val) : this.auditioneeList.slice());
 		});
-
-		this.filteredOptions = this.myControl.valueChanges.startWith(null).map(val =>
-			val ? this.filter(val) : this.auditioneeList.slice());
 	}
 
 	filter(val: string): any[] {
@@ -66,11 +67,6 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	public submitComment() {
 		for (var item of this.judgementList) {
 			var instance = item.instance;
-			console.log(this.studentLeader);
-			console.log(this.auditionee);
-      console.log(instance.getCriteria());
-			console.log(instance.getGoodOrBad());
-			console.log(instance.getComment());
 			var newJudgement = {
 				studentLeader: this.studentLeader,
 				criteria: instance.getCriteria(),

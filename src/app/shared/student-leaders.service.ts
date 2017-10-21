@@ -6,7 +6,7 @@ export class StudentLeadersService {
 
   constructor(private db: AngularFireDatabase) { }
 
-  public getStudentLeaders(): AngularFireList<any[]> {
-    return this.db.list('Trumpets/StudentLeaders')
+  public getStudentLeaders(): AngularFireList<string[]> {
+    return this.db.list('Trumpets/Student Leaders')
   }
 }
