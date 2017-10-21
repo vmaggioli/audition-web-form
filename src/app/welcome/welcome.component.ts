@@ -4,7 +4,8 @@ import { VerifiedUsersService } from '../shared/verified-users.service';
 import { SignInErrorComponent } from '../error/sign-in-error.component'
 import { MatButton } from '@angular/material';
 import { AuthService } from '../shared/auth.service';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { CommentsService } from '../shared/comments.service';
+import { AngularFireDatabase, AngularFireAction } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 
@@ -15,20 +16,18 @@ import { Observable } from 'rxjs/Observable';
 
 export class WelcomeComponent implements OnInit {
   user: firebase.User = null;
-  topics: AngularFireList<any[]>;
-  verifiedUsers: Observable<any[]>;
 
   constructor(
       private auth: AuthService,
       public db: AngularFireDatabase,
       private router: Router,
-      private verUser: VerifiedUsersService) { }
+      private verUser: VerifiedUsersService,
+      private comServ: CommentsService) { }
 
   ngOnInit() {
     this.auth.getAuthState().subscribe(
       (user) => this.user = user);
-    this.verifiedUsers = this.verUser.getVerifiedUsers().valueChanges();
-    }
+  }
 
   loginWithGoogle() {
     this.auth.loginWithGoogle().then((result) => {

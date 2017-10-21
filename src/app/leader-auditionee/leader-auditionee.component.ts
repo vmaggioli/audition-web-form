@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { JudgementComponent } from '../judgement/judgement.component';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { DynamicModule } from '../dynamic-module';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireAction } from 'angularfire2/database';
 import { MatInput, MatAutocomplete, MatSelect, MatFormField, MatButton, MatOption } from '@angular/material';
 import { StudentLeadersService } from '../shared/student-leaders.service';
 import { Observable } from 'rxjs/Observable';
@@ -22,8 +22,8 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	public judgementList: Array<ComponentRef<JudgementComponent>> = [];
 	public studentLeader: string = '';
 	public auditionee: string = '';
-	public auditioneeList: Array<string> = [];
-	public slList: Observable<any>;
+	public auditioneeList: Array<any> = [];
+	public slList: Array<any> = [];
 	public myControl: FormControl = new FormControl();
 	public filteredOptions: Observable<string[]>;
 
@@ -35,18 +35,21 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 
 	ngOnInit() {
 		// fill student leaders list
-		this.slList = this.service.getStudentLeaders().valueChanges();
-
-		// fill auditionees list
-		this.auditService.getAuditionees().valueChanges().forEach(data => {
-			this.auditioneeList = [];
+		this.service.getStudentLeaders().forEach(data => {
+			this.slList = [];
 			for (var item of data) {
-				this.auditioneeList.push(item['name']);
+				this.slList.push(item);
 			}
 		});
-
-		this.filteredOptions = this.myControl.valueChanges.startWith(null).map(val =>
-			val ? this.filter(val) : this.auditioneeList.slice());
+		// fill auditionees list
+		this.auditService.getAuditionees().forEach(data => {
+			this.auditioneeList = [];
+			for (var item of data) {
+				this.auditioneeList.push(item);
+			}
+			this.filteredOptions = this.myControl.valueChanges.startWith(null).map(val =>
+				val ? this.filter(val) : this.auditioneeList.slice());
+		});
 	}
 
 	filter(val: string): any[] {
@@ -66,12 +69,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	public submitComment() {
 		for (var item of this.judgementList) {
 			var instance = item.instance;
-			console.log(this.studentLeader);
-			console.log(this.auditionee);
-      console.log(instance.getCriteria());
-			console.log(instance.getGoodOrBad());
-			console.log(instance.getComment());
-			var newJudgement = {
+			const newJudgement = {
 				studentLeader: this.studentLeader,
 				criteria: instance.getCriteria(),
 				comment: instance.getComment()
