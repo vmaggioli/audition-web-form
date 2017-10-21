@@ -7,7 +7,7 @@ export class StudentLeadersService {
 
   constructor(private db: AngularFireDatabase) { }
 
-  public getStudentLeaders(): Observable<AngularFireAction<firebase.database.DataSnapshot>[]> {
-    return this.db.list('Trumpets/Student Leaders').valueChanges();
+  public getStudentLeaders(): AngularFireList<string[]> {
+    return this.db.list('Trumpets/Student Leaders')
   }
 }

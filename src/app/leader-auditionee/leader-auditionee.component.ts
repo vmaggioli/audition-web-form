@@ -23,7 +23,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	public studentLeader: string = '';
 	public auditionee: string = '';
 	public auditioneeList: Array<any> = [];
-	public slList: Array<any> = [];
+	public slList: Observable<string[]>;
 	public myControl: FormControl = new FormControl();
 	public filteredOptions: Observable<string[]>;
 
@@ -35,15 +35,10 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 
 	ngOnInit() {
 		// fill student leaders list
-		this.service.getStudentLeaders().forEach(data => {
-			this.slList = [];
-			for (var item of data) {
-				this.slList.push(item);
-			}
-		});
+		this.slList = this.service.getStudentLeaders().valueChanges();
+
 		// fill auditionees list
-		this.auditService.getAuditionees().forEach(data => {
-			this.auditioneeList = [];
+		this.auditService.getAuditionees().valueChanges().forEach(data => {
 			for (var item of data) {
 				this.auditioneeList.push(item);
 			}
