@@ -60,6 +60,15 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 		this.cdr.detectChanges();
 	}
 
+	public newAuditionee(name) {
+		for (let i = 0; i < this.auditioneeList.length; i++) {
+			if (this.auditioneeList[i] === name) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public submitComment() {
 		for (var item of this.judgementList) {
 			var instance = item.instance;
@@ -69,6 +78,9 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 				comment: instance.getComment()
 			};
 			this.db.list('Trumpets/Comments/' + this.auditionee + '/' + instance.getGoodOrBad()).push(newJudgement);
+		}
+		if (this.newAuditionee(this.auditionee)) {
+			this.db.list('Trumpets/Auditionees').push(this.auditionee);
 		}
 		this.target.clear();
 		this.judgementList = [];
