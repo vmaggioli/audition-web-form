@@ -1,8 +1,8 @@
 <div class="leaderAuditionee">
 	<mat-form-field>
 		<mat-select placeholder="Student Leader" [(ngModel)]="studentLeader" required>
-			<mat-option *ngFor="let obj of slList | async" [value]="obj.name">
-				{{obj.name}}
+			<mat-option *ngFor="let obj of slList" [value]="obj">
+				{{obj}}
 			</mat-option>
 		</mat-select>
 	</mat-form-field>
