@@ -1,32 +1,24 @@
-<h3>Student Leader</h3>
-<input (keyup)="onKeyLeader($event)" type="text" id="studentLeader" name="studentLeader" required/>
+<div class="leaderAuditionee">
+	<mat-form-field>
+		<mat-select placeholder="Student Leader" [(ngModel)]="studentLeader" required>
+			<mat-option *ngFor="let obj of slList | async" [value]="obj.name">
+				{{obj.name}}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
 
-<div id="addsls" style="margin:10px 0px;">
-	<button (click)="addLeaders()">Add leaders</button>
-	<button (click)="oldLeaders()">Remove leaders</button>
-
-	<div id="new div" style="display:none;">
-		<textarea (keyup)="onKeyNewLeader($event)" style="height:150px;" placeholder="Names of SLs to be added (one name per line)"></textarea>
-		<button (click)="add()">Add</button>
+	<mat-form-field>
+		<input matInput type="text" placeholder="Auditionee" [(ngModel)]="auditionee" [formControl]="myControl" [matAutocomplete]="auto" required>
+		<mat-autocomplete #auto="matAutocomplete">
+			<mat-option *ngFor="let auditionee of filteredOptions | async" [value]="auditionee">
+				{{auditionee}}
+			</mat-option>
+		</mat-autocomplete>
+	</mat-form-field>
+	<div>
+		<ng-template #target></ng-template>
 	</div>
-
-	<div id="new div 2" style="display:none;">
-		<textarea (keyup)="onKeyRemoveLeader($event)" style="height:150px;" placeholder="Names of SLs to be removed (one name per line)"></textarea>
-		<button (click)="remove()">Remove</button>
-	</div>
-</div>
-
-<h3>Auditionee</h3>
-<input (keyup)="onKeyAuditionee($event)" type="text" id="auditionee" name="auditionee" placeholder="Name an auditionee"  required/>
-
-<div>
-	<ng-template #target></ng-template>
-</div>
-<input type="button" id="more_fields" (click)="putInMyHtml()" value="Add another comment"/>
-<br><br>
-<input (click)="submitComment()" type="submit" value="Submit"/>
-
-<div id="reset">
-	<button (click)="removeAllLeaders()">Reset leaders</button>
-	<button (click)="removeAllAuditionees()">Reset auditionees</button>
+	<button mat-button (click)="putInMyHtml()">Add another comment</button>
+	<br><br>
+	<button mat-button (click)="submitComment()" type="submit">Submit</button>
 </div>
