@@ -8,6 +8,8 @@ import { MatInput, MatAutocomplete, MatSelect, MatFormField, MatButton, MatOptio
 import { StudentLeadersService } from '../shared/student-leaders.service';
 import { Observable } from 'rxjs/Observable';
 import { AuditioneesService } from '../shared/auditionees.service';
+import { Leader } from './leader';
+import { Auditionee } from './auditionee';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
@@ -22,8 +24,8 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	public judgementList: Array<ComponentRef<JudgementComponent>> = [];
 	public studentLeader: string = '';
 	public auditionee: string = '';
-	public auditioneeList: Array<any> = [];
-	public slList: Observable<string[]>;
+	public auditioneeList: Array<string> = [];
+	public slList: Array<string> = [];
 	public myControl: FormControl = new FormControl();
 	public filteredOptions: Observable<string[]>;
 
@@ -31,20 +33,17 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 							private db: AngularFireDatabase,
 							private cdr: ChangeDetectorRef,
 							private service: StudentLeadersService,
-							private auditService: AuditioneesService) { }
-
+							private auditService: AuditioneesService) {}
+	
 	ngOnInit() {
 		// fill student leaders list
-		this.slList = this.service.getStudentLeaders().valueChanges();
+		this.slList = this.service.getStudentLeaders();
 
 		// fill auditionees list
-		this.auditService.getAuditionees().forEach(data => {
-			for (var item of data) {
-				this.auditioneeList.push(item);
-			}
-			this.filteredOptions = this.myControl.valueChanges.startWith(null).map(val =>
-				val ? this.filter(val) : this.auditioneeList.slice());
-		});
+		this.auditioneeList = this.auditService.getAuditionees();
+
+		this.filteredOptions = this.myControl.valueChanges.startWith(null).map(val =>
+			val ? this.filter(val) : this.auditioneeList.slice());
 	}
 
 	filter(val: string): any[] {
@@ -61,6 +60,15 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 		this.cdr.detectChanges();
 	}
 
+	public newAuditionee(name) {
+		for (let i = 0; i < this.auditioneeList.length; i++) {
+			if (this.auditioneeList[i] === name) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public submitComment() {
 		for (var item of this.judgementList) {
 			var instance = item.instance;
@@ -70,6 +78,9 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 				comment: instance.getComment()
 			};
 			this.db.list('Trumpets/Comments/' + this.auditionee + '/' + instance.getGoodOrBad()).push(newJudgement);
+		}
+		if (this.newAuditionee(this.auditionee)) {
+			this.db.list('Trumpets/Auditionees').push(this.auditionee);
 		}
 		this.target.clear();
 		this.judgementList = [];
