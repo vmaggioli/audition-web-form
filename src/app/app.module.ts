@@ -23,6 +23,7 @@ import * as firebase from 'firebase';
 import { VerifiedUsersService } from './shared/verified-users.service';
 import { StudentLeadersService } from './shared/student-leaders.service';
 import { AuditioneesService } from './shared/auditionees.service';
+import { CommentsService } from './shared/comments.service';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { AuditioneesService } from './shared/auditionees.service';
     LoginGuard,
     VerifiedUsersService,
     StudentLeadersService,
-    AuditioneesService
+    AuditioneesService,
+    CommentsService
   ],
   bootstrap: [AppComponent]
 })

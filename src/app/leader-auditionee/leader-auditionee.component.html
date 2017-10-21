@@ -1,8 +1,8 @@
 <div class="leaderAuditionee">
 	<mat-form-field>
 		<mat-select placeholder="Student Leader" [(ngModel)]="studentLeader" required>
-			<mat-option *ngFor="let obj of slList | async" [value]="obj.name">
-				{{obj.name}}
+			<mat-option *ngFor="let obj of this.slList | async" [value]="obj">
+				{{obj}}
 			</mat-option>
 		</mat-select>
 	</mat-form-field>
@@ -10,7 +10,7 @@
 	<mat-form-field>
 		<input matInput type="text" placeholder="Auditionee" [(ngModel)]="auditionee" [formControl]="myControl" [matAutocomplete]="auto" required>
 		<mat-autocomplete #auto="matAutocomplete">
-			<mat-option *ngFor="let auditionee of filteredOptions | async" [value]="auditionee">
+			<mat-option *ngFor="let auditionee of this.filteredOptions | async" [value]="auditionee">
 				{{auditionee}}
 			</mat-option>
 		</mat-autocomplete>
