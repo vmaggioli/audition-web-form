@@ -14,7 +14,6 @@ import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
 
-
 @Component({
   selector: 'app-leader-auditionee',
   templateUrl: './leader-auditionee.component.html'
@@ -26,7 +25,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	public studentLeader: string = '';
 	public auditionee: string = '';
 	public auditioneeList: Array<string> = [];
-	public slList: Observable<any>;
+	public slList: Array<string> = [];
 	public myControl: FormControl = new FormControl();
 	public filteredOptions: Observable<string[]>;
 
@@ -34,19 +33,14 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 							private db: AngularFireDatabase,
 							private cdr: ChangeDetectorRef,
 							private service: StudentLeadersService,
-							private auditService: AuditioneesService) { }
-
+							private auditService: AuditioneesService) {}
+	
 	ngOnInit() {
 		// fill student leaders list
-		this.slList = this.service.getStudentLeaders().valueChanges();
+		this.slList = this.service.getStudentLeaders();
 
 		// fill auditionees list
-		this.auditService.getAuditionees().valueChanges().forEach(data => {
-			this.auditioneeList = [];
-			for (var item of data) {
-				this.auditioneeList.push(item['name']);
-			}
-		});
+		this.auditioneeList = this.auditService.getAuditionees();
 
 		this.filteredOptions = this.myControl.valueChanges.startWith(null).map(val =>
 			val ? this.filter(val) : this.auditioneeList.slice());
