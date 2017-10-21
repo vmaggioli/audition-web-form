@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { JudgementComponent } from '../judgement/judgement.component';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { DynamicModule } from '../dynamic-module';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireAction } from 'angularfire2/database';
 import { MatInput, MatAutocomplete, MatSelect, MatFormField, MatButton, MatOption } from '@angular/material';
 import { StudentLeadersService } from '../shared/student-leaders.service';
 import { Observable } from 'rxjs/Observable';
@@ -36,9 +36,6 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	ngOnInit() {
 		// fill student leaders list
 		this.slList = this.service.getStudentLeaders().valueChanges();
-		this.slList.forEach(data => {
-			console.log(data);
-		})
 
 		// fill auditionees list
 		this.auditService.getAuditionees().valueChanges().forEach(data => {
@@ -67,7 +64,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	public submitComment() {
 		for (var item of this.judgementList) {
 			var instance = item.instance;
-			var newJudgement = {
+			const newJudgement = {
 				studentLeader: this.studentLeader,
 				criteria: instance.getCriteria(),
 				comment: instance.getComment()
