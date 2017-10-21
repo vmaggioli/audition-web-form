@@ -32,20 +32,21 @@ export class WelcomeComponent implements OnInit {
 
   loginWithGoogle() {
     this.auth.loginWithGoogle().then((result) => {
-      this.verifiedUsers.forEach(data => {
-        var check = false;
-        for (var item of data) {
-          if (item.uid === this.auth.getCurrentUser().uid) {
-            check = true;
-            break;
-          }
-        }
-        if (check) {
-          this.router.navigateByUrl('dashboard');
-        } else  {
-          this.router.navigateByUrl('error');
-        }
-      });
+      this.router.navigateByUrl('dashboard');
+      // this.verifiedUsers.forEach(data => {
+      //   var check = false;
+      //   for (var item of data) {
+      //     if (item.uid === this.auth.getCurrentUser().uid) {
+      //       check = true;
+      //       break;
+      //     }
+      //   }
+      //   if (check) {
+      //     this.router.navigateByUrl('dashboard');
+      //   } else  {
+      //     this.router.navigateByUrl('error');
+      //   }
+      // });
     });
   }
 }
