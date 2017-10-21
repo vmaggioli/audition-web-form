@@ -38,7 +38,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 		this.slList = this.service.getStudentLeaders().valueChanges();
 
 		// fill auditionees list
-		this.auditService.getAuditionees().valueChanges().forEach(data => {
+		this.auditService.getAuditionees().forEach(data => {
 			for (var item of data) {
 				this.auditioneeList.push(item);
 			}
