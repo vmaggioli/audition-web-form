@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MdButtonModule } from '@angular/material';
-
+import { Router, RouterModule } from '@angular/router';
+import { VerifiedUsersService } from '../shared/verified-users.service';
+import { SignInErrorComponent } from '../error/sign-in-error.component'
+import { MatButton } from '@angular/material';
 import { AuthService } from '../shared/auth.service';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-welcome',
@@ -12,25 +14,38 @@ import * as firebase from 'firebase/app';
 })
 
 export class WelcomeComponent implements OnInit {
-  title: string = 'AAMB Selections';
   user: firebase.User = null;
-  topics: FirebaseListObservable<any[]>;
+  topics: AngularFireList<any[]>;
+  verifiedUsers: Observable<any[]>;
 
   constructor(
       private auth: AuthService,
       public db: AngularFireDatabase,
-      private router: Router) { }
+      private router: Router,
+      private verUser: VerifiedUsersService) { }
 
   ngOnInit() {
     this.auth.getAuthState().subscribe(
       (user) => this.user = user);
-  }
+    this.verifiedUsers = this.verUser.getVerifiedUsers().valueChanges();
+    }
 
   loginWithGoogle() {
     this.auth.loginWithGoogle().then((result) => {
-      if (this.auth.getCurrentUser() != null) {
-        this.router.navigateByUrl('dashboard');
-      }
+      this.verifiedUsers.forEach(data => {
+        var check = false;
+        for (var item of data) {
+          if (item.uid === this.auth.getCurrentUser().uid) {
+            check = true;
+            break;
+          }
+        }
+        if (check) {
+          this.router.navigateByUrl('dashboard');
+        } else  {
+          this.router.navigateByUrl('error');
+        }
+      });
     });
   }
 }
