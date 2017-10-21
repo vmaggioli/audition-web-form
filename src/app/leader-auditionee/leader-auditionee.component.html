@@ -10,7 +10,7 @@
 	<mat-form-field>
 		<input matInput type="text" placeholder="Auditionee" [(ngModel)]="auditionee" [formControl]="myControl" [matAutocomplete]="auto" required>
 		<mat-autocomplete #auto="matAutocomplete">
-			<mat-option *ngFor="let auditionee of filteredOptions | async" [value]="auditionee">
+			<mat-option *ngFor="let auditionee of this.filteredOptions | async" [value]="auditionee">
 				{{auditionee}}
 			</mat-option>
 		</mat-autocomplete>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { Auditionee } from '../leader-auditionee/auditionee';
+import { AngularFireDatabase, AngularFireAction } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuditioneesService {

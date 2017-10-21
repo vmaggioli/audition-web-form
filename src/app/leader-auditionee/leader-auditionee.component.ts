@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { JudgementComponent } from '../judgement/judgement.component';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { DynamicModule } from '../dynamic-module';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireAction } from 'angularfire2/database';
 import { MatInput, MatAutocomplete, MatSelect, MatFormField, MatButton, MatOption } from '@angular/material';
 import { StudentLeadersService } from '../shared/student-leaders.service';
 import { Observable } from 'rxjs/Observable';
@@ -63,12 +63,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	public submitComment() {
 		for (var item of this.judgementList) {
 			var instance = item.instance;
-			console.log(this.studentLeader);
-			console.log(this.auditionee);
-      console.log(instance.getCriteria());
-			console.log(instance.getGoodOrBad());
-			console.log(instance.getComment());
-			var newJudgement = {
+			const newJudgement = {
 				studentLeader: this.studentLeader,
 				criteria: instance.getCriteria(),
 				comment: instance.getComment()

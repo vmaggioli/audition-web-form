@@ -10,7 +10,7 @@ export const environment = {
     authDomain: "audition-web-form-bba4c.firebaseapp.com",
     databaseURL: "https://audition-web-form-bba4c.firebaseio.com",
     projectId: "audition-web-form-bba4c",
-    storageBucket: "",
+    storageBucket: "audition-web-form-bba4c.appspot.com",
     messagingSenderId: "627879302465"
   }
 };
