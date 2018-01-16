@@ -1,4 +1,5 @@
-import { Component, NgModule, OnInit, ComponentFactoryResolver, ViewContainerRef, ViewChild, AfterViewInit, ComponentRef, ChangeDetectorRef } from '@angular/core';
+import { Component, NgModule, OnInit, ComponentFactoryResolver, ViewContainerRef, ViewChild, 
+	AfterViewInit, ComponentRef, ChangeDetectorRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { JudgementComponent } from '../judgement/judgement.component';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
@@ -13,15 +14,15 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
 
 @Component({
-  selector: 'app-leader-auditionee',
-  templateUrl: './leader-auditionee.component.html'
+	selector: 'app-leader-auditionee',
+	templateUrl: './leader-auditionee.component.html'
 })
 
 export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	@ViewChild('target', { read: ViewContainerRef }) target: ViewContainerRef;
 	public judgementList: Array<ComponentRef<JudgementComponent>> = [];
-	public studentLeader: string = '';
-	public auditionee: string = '';
+	public studentLeader = '';
+	public auditionee = '';
 	public auditioneeList: Array<any> = [];
 	public slList: Observable<string[]>;
 	public myControl: FormControl = new FormControl();
@@ -39,7 +40,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 
 		// fill auditionees list
 		this.auditService.getAuditionees().forEach(data => {
-			for (var item of data) {
+			for (const item of data) {
 				this.auditioneeList.push(item);
 			}
 			this.filteredOptions = this.myControl.valueChanges.startWith(null).map(val =>
@@ -48,7 +49,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	}
 
 	filter(val: string): any[] {
-		return this.auditioneeList.filter(option => option.toLowerCase().indexOf(val.toLowerCase()) == 0);
+		return this.auditioneeList.filter(option => option.toLowerCase().indexOf(val.toLowerCase()) === 0);
 	}
 
 	ngAfterViewInit() {
@@ -56,14 +57,14 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	}
 
 	public putInMyHtml() {
-		let compFactory = this.cfr.resolveComponentFactory(JudgementComponent);
+		const compFactory = this.cfr.resolveComponentFactory(JudgementComponent);
 		this.judgementList.push(this.target.createComponent(compFactory));
 		this.cdr.detectChanges();
 	}
 
 	public submitComment() {
-		for (var item of this.judgementList) {
-			var instance = item.instance;
+		for (const item of this.judgementList) {
+			const instance = item.instance;
 			const newJudgement = {
 				studentLeader: this.studentLeader,
 				criteria: instance.getCriteria(),

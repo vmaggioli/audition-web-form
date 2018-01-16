@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { VerifiedUsersService } from '../shared/verified-users.service';
-import { SignInErrorComponent } from '../error/sign-in-error.component'
+import { SignInErrorComponent } from '../error/sign-in-error.component';
 import { MatButton } from '@angular/material';
 import { AuthService } from '../shared/auth.service';
 import { CommentsService } from '../shared/comments.service';
