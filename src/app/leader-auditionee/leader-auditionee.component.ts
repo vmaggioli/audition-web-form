@@ -21,12 +21,10 @@ import 'rxjs/add/operator/filter';
 export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	@ViewChild('target', { read: ViewContainerRef }) target: ViewContainerRef;
 	public judgementList: Array<ComponentRef<JudgementComponent>> = [];
-	public studentLeader = '';
-	public auditionee = '';
+	public studentLeader: string;
+	public auditionee: string;
 	public auditioneeList: Array<any> = [];
 	public slList: Observable<string[]>;
-	public myControl: FormControl = new FormControl();
-	public filteredOptions: Observable<string[]>;
 
 	constructor(private cfr: ComponentFactoryResolver,
 							private db: AngularFireDatabase,
@@ -35,17 +33,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 							private auditService: AuditioneesService) { }
 
 	ngOnInit() {
-		// fill student leaders list
-		this.slList = this.service.getStudentLeaders().valueChanges();
-
-		// fill auditionees list
-		this.auditService.getAuditionees().forEach(data => {
-			for (const item of data) {
-				this.auditioneeList.push(item);
-			}
-			this.filteredOptions = this.myControl.valueChanges.startWith(null).map(val =>
-				val ? this.filter(val) : this.auditioneeList.slice());
-		});
+    
 	}
 
 	filter(val: string): any[] {
