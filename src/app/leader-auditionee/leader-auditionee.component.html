@@ -1,4 +1,13 @@
 <div class="leaderAuditionee">
+	
+	<mat-form-field>
+		<mat-select placeholder="Section" [(ngModel)]="section" required>
+			<mat-option *ngFor="let obj of SECTIONS" [value]="obj">
+				{{obj}}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+	
 	<mat-form-field>
 			<input matInput type="text" placeholder="Student Leader" [(ngModel)]="studentLeader" required>
 	</mat-form-field>

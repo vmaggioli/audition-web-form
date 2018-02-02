@@ -1,5 +1,5 @@
-import { Component, NgModule, OnInit, ComponentFactoryResolver, ViewContainerRef, ViewChild, 
-	AfterViewInit, ComponentRef, ChangeDetectorRef } from '@angular/core';
+import { Component, NgModule, OnInit, ComponentFactoryResolver, ViewContainerRef, ViewChild, AfterViewInit, 
+	ComponentRef, ChangeDetectorRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { JudgementComponent } from '../judgement/judgement.component';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
@@ -10,8 +10,6 @@ import { StudentLeadersService } from '../shared/student-leaders.service';
 import { Observable } from 'rxjs/Observable';
 import { AuditioneesService } from '../shared/auditionees.service';
 import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/filter';
 
 @Component({
 	selector: 'app-leader-auditionee',
@@ -33,7 +31,15 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 							private auditService: AuditioneesService) { }
 
 	ngOnInit() {
-    
+		// fill student leaders list
+		this.slList = this.service.getStudentLeaders().valueChanges();
+
+		// fill auditionees list
+		this.auditService.getAuditionees().forEach(data => {
+			for (const item of data) {
+				this.auditioneeList.push(item);
+			}
+		});
 	}
 
 	filter(val: string): any[] {
