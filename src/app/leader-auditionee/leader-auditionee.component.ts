@@ -20,12 +20,10 @@ import 'rxjs/add/operator/filter';
 export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	@ViewChild('target', { read: ViewContainerRef }) target: ViewContainerRef;
 	public judgementList: Array<ComponentRef<JudgementComponent>> = [];
-	public studentLeader: string = '';
-	public auditionee: string = '';
+	public studentLeader: string;
+	public auditionee: string;
 	public auditioneeList: Array<any> = [];
 	public slList: Observable<string[]>;
-	public myControl: FormControl = new FormControl();
-	public filteredOptions: Observable<string[]>;
 
 	constructor(private cfr: ComponentFactoryResolver,
 							private db: AngularFireDatabase,
@@ -34,17 +32,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 							private auditService: AuditioneesService) { }
 
 	ngOnInit() {
-		// fill student leaders list
-		this.slList = this.service.getStudentLeaders().valueChanges();
 
-		// fill auditionees list
-		this.auditService.getAuditionees().forEach(data => {
-			for (var item of data) {
-				this.auditioneeList.push(item);
-			}
-			this.filteredOptions = this.myControl.valueChanges.startWith(null).map(val =>
-				val ? this.filter(val) : this.auditioneeList.slice());
-		});
 	}
 
 	filter(val: string): any[] {
@@ -56,14 +44,14 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	}
 
 	public putInMyHtml() {
-		let compFactory = this.cfr.resolveComponentFactory(JudgementComponent);
+		const compFactory = this.cfr.resolveComponentFactory(JudgementComponent);
 		this.judgementList.push(this.target.createComponent(compFactory));
 		this.cdr.detectChanges();
 	}
 
 	public submitComment() {
-		for (var item of this.judgementList) {
-			var instance = item.instance;
+		for (const item of this.judgementList) {
+			const instance = item.instance;
 			const newJudgement = {
 				studentLeader: this.studentLeader,
 				criteria: instance.getCriteria(),
