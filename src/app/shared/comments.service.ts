@@ -8,11 +8,15 @@ export class CommentsService {
 
   constructor(private db: AngularFireDatabase) {}
 
-  getGoodComments(auditionee: string): Observable<AngularFireAction<firebase.database.DataSnapshot>[]> {
+  getGoodComments(auditionee: string): Observable<any> {
     return this.db.list('Trumpets/Comments/' + auditionee + '/Good').valueChanges();
   }
 
-  getBadComments(auditionee: string): Observable<AngularFireAction<firebase.database.DataSnapshot>[]> {
+  getBadComments(auditionee: string): Observable<any> {
     return this.db.list('Trumpets/Comments/' + auditionee + '/Bad').valueChanges();
+  }
+
+  getAllComments(): Observable<any> {
+    return this.db.list('Trumpets/Comments').valueChanges();
   }
 }
