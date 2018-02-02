@@ -1,4 +1,5 @@
-import { Component, NgModule, OnInit, ComponentFactoryResolver, ViewContainerRef, ViewChild, AfterViewInit, ComponentRef, ChangeDetectorRef } from '@angular/core';
+import { Component, NgModule, OnInit, ComponentFactoryResolver, ViewContainerRef, ViewChild, 
+	AfterViewInit, ComponentRef, ChangeDetectorRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { JudgementComponent } from '../judgement/judgement.component';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
@@ -13,8 +14,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
 
 @Component({
-  selector: 'app-leader-auditionee',
-  templateUrl: './leader-auditionee.component.html'
+	selector: 'app-leader-auditionee',
+	templateUrl: './leader-auditionee.component.html'
 })
 
 export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
@@ -32,11 +33,11 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 							private auditService: AuditioneesService) { }
 
 	ngOnInit() {
-
+    
 	}
 
 	filter(val: string): any[] {
-		return this.auditioneeList.filter(option => option.toLowerCase().indexOf(val.toLowerCase()) == 0);
+		return this.auditioneeList.filter(option => option.toLowerCase().indexOf(val.toLowerCase()) === 0);
 	}
 
 	ngAfterViewInit() {

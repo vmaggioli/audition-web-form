@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DynamicModule } from './dynamic-module';
-import { MatInputModule, MatButtonModule, MatSelectModule, MatAutocompleteModule, MatOptionModule, MatRadioModule } from '@angular/material';
+import { MatInputModule, MatButtonModule, MatSelectModule, MatAutocompleteModule,
+  MatOptionModule, MatRadioModule, MatTabsModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,7 +13,9 @@ import { AppComponent } from './app.component';
 import { JudgementComponent } from './judgement/judgement.component';
 import { LeaderAuditioneeComponent } from './leader-auditionee/leader-auditionee.component';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { SignInErrorComponent } from './error/sign-in-error.component'
+import { SignInErrorComponent } from './error/sign-in-error.component';
+import { TabPageComponent } from './tab-page/tab-page.component';
+import { ReviewComponent } from './review/review.component';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -32,6 +35,8 @@ import { CommentsService } from './shared/comments.service';
     JudgementComponent,
     WelcomeComponent,
     SignInErrorComponent,
+    TabPageComponent,
+    ReviewComponent
   ],
   entryComponents: [ JudgementComponent ],
   imports: [
@@ -51,6 +56,7 @@ import { CommentsService } from './shared/comments.service';
     MatOptionModule,
     MatInputModule,
     MatRadioModule,
+    MatTabsModule
   ],
   providers: [
     AuthService,
