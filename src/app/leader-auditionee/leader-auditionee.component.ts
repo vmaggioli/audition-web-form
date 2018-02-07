@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-import { Component, NgModule, OnInit, ComponentFactoryResolver, ViewContainerRef, ViewChild, 
-	AfterViewInit, ComponentRef, ChangeDetectorRef } from '@angular/core';
-=======
 import { Component, NgModule, OnInit, ComponentFactoryResolver, ViewContainerRef, ViewChild, AfterViewInit,
 	ComponentRef, ChangeDetectorRef } from '@angular/core';
->>>>>>> master
 import { BrowserModule } from '@angular/platform-browser';
 import { JudgementComponent } from '../judgement/judgement.component';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
