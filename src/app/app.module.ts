@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DynamicModule } from './dynamic-module';
 import { MatInputModule, MatButtonModule, MatSelectModule, MatAutocompleteModule,
-  MatOptionModule, MatRadioModule, MatTabsModule } from '@angular/material';
+    MatOptionModule, MatRadioModule, MatTabsModule, MatTableModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -54,7 +54,8 @@ import { CommentsService } from './shared/comments.service';
     MatOptionModule,
     MatInputModule,
     MatRadioModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTableModule,
   ],
   providers: [
     AuthService,
@@ -62,7 +63,7 @@ import { CommentsService } from './shared/comments.service';
     VerifiedUsersService,
     StudentLeadersService,
     AuditioneesService,
-    CommentsService
+    CommentsService,
   ],
   bootstrap: [AppComponent]
 })

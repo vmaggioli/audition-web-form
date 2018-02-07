@@ -43,7 +43,6 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 							private auditService: AuditioneesService) { }
 
 	ngOnInit() {
-
 	}
 
 	ngAfterViewInit() {

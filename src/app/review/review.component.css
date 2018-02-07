@@ -1,0 +1,4 @@
+.example-container {
+    display: flex;
+    min-width: 300px;
+}

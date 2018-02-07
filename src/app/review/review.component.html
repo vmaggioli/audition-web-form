@@ -1,1 +1,50 @@
-<h1>Holder text</h1>
+<div class="example-container mat-elevation-z8">
+
+    <mat-form-field>
+        <mat-select placeholder="Section" [(ngModel)]="section" (ngModelChange)="setData()" required>
+            <mat-option *ngFor="let obj of this.SECTIONS" [value]="obj">
+                {{obj}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput type="text" placeholder="Filter" [(ngModel)]="auditionee" (keyup)="applyFilter($event.target.value)">
+    </mat-form-field>
+
+    <mat-table #table [dataSource]="dataSource">
+
+        <!-- Auditionee Column -->
+        <ng-container matColumnDef="auditionee">
+            <mat-header-cell *matHeaderCellDef> Auditionee </mat-header-cell>
+            <mat-cell *matCellDef="let data"> {{data.auditionee}} </mat-cell>
+        </ng-container>
+
+        <!-- Student Leader Column -->
+        <ng-container matColumnDef="studentLeader">
+            <mat-header-cell *matHeaderCellDef> Student Leader </mat-header-cell>
+            <mat-cell *matCellDef="let data"> {{data.studentLeader}} </mat-cell>
+        </ng-container>
+
+        <!-- Criteria Column -->
+        <ng-container matColumnDef="criteria">
+            <mat-header-cell *matHeaderCellDef> Criteria </mat-header-cell>
+            <mat-cell *matCellDef="let data"> {{data.criteria}} </mat-cell>
+        </ng-container>
+
+        <!-- Good/Bad Column -->
+        <ng-container matColumnDef="goodBad">
+            <mat-header-cell *matHeaderCellDef> Good/Bad </mat-header-cell>
+            <mat-cell *matCellDef="let data"> {{data.goodBad}} </mat-cell>
+        </ng-container>
+
+        <!-- Comment Column -->
+        <ng-container matColumnDef="comment">
+            <mat-header-cell *matHeaderCellDef> Comment </mat-header-cell>
+            <mat-cell *matCellDef="let data"> {{data.comment}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+</div>
