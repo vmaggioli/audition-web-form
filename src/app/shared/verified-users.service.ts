@@ -7,7 +7,7 @@ export class VerifiedUsersService {
 
   constructor(private db: AngularFireDatabase) { }
 
-  getVerifiedUsers(): Observable<AngularFireAction<firebase.database.DataSnapshot>[]> {
+  getVerifiedUsers(): Observable<any> {
     return this.db.list('VerifiedUsers').valueChanges();
   }
 }

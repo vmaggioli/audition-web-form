@@ -8,37 +8,22 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class AuthService {
   private authState: Observable<firebase.User>;
-  private currentUser: firebase.User = null;
 
-  constructor(public afAuth: AngularFireAuth) {
-    this.authState = this.afAuth.authState;
-    this.authState.subscribe(user => {
-      if (user) {
-        this.currentUser = user;
-      } else {
-        this.currentUser = null;
-      }
-    });
-  }
+  constructor(public afAuth: AngularFireAuth) {  }
 
-  getAuthState() {
+  getAuthState(): Observable<firebase.User> {
     return this.authState;
   }
 
-  loginWithGoogle() {
-    return this.afAuth.auth.signInWithPopup(
-      new firebase.auth.GoogleAuthProvider()).then((result) => {
-        this.currentUser = result.user;
-      });
+  loginWithGoogle(): Promise<any> {
+    return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
-  logoutWithGoogle() {
-    return this.afAuth.auth.signOut().then((result) => {
-      this.currentUser = null;
-    });
+  logoutWithGoogle(): Promise<any> {
+    return this.afAuth.auth.signOut();
   }
 
-  getCurrentUser() {
-    return this.currentUser;
+  getCurrentUser(): firebase.User {
+    return this.afAuth.auth.currentUser;
   }
 }
