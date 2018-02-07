@@ -13,7 +13,6 @@ import { AppComponent } from './app.component';
 import { JudgementComponent } from './judgement/judgement.component';
 import { LeaderAuditioneeComponent } from './leader-auditionee/leader-auditionee.component';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { SignInErrorComponent } from './error/sign-in-error.component';
 import { TabPageComponent } from './tab-page/tab-page.component';
 import { ReviewComponent } from './review/review.component';
 
@@ -34,7 +33,6 @@ import { CommentsService } from './shared/comments.service';
     LeaderAuditioneeComponent,
     JudgementComponent,
     WelcomeComponent,
-    SignInErrorComponent,
     TabPageComponent,
     ReviewComponent
   ],

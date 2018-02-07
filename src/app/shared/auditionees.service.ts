@@ -7,7 +7,7 @@ export class AuditioneesService {
 
   constructor(private db: AngularFireDatabase) { }
 
-  public getAuditionees(): Observable<AngularFireAction<firebase.database.DataSnapshot>[]> {
+  public getAuditionees(): Observable<any> {
     return this.db.list('Trumpets/Auditionees').valueChanges();
   }
 }
