@@ -19,7 +19,7 @@ export class ReviewComponent implements OnInit {
         private comService: CommentsService) { }
 
     ngOnInit() {
-        
+
     }
 }
 

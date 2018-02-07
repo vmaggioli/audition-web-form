@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { VerifiedUsersService } from '../shared/verified-users.service';
-import { SignInErrorComponent } from '../error/sign-in-error.component';
 import { MatButton } from '@angular/material';
 import { AuthService } from '../shared/auth.service';
-import { CommentsService } from '../shared/comments.service';
 import { AngularFireDatabase, AngularFireAction } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'app-welcome',
@@ -15,38 +14,28 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class WelcomeComponent implements OnInit {
-  user: firebase.User = null;
 
   constructor(
       private auth: AuthService,
-      public db: AngularFireDatabase,
       private router: Router,
       private verUser: VerifiedUsersService,
-      private comServ: CommentsService) { }
+      private afAuth: AngularFireAuth) { }
 
   ngOnInit() {
-    this.auth.getAuthState().subscribe(
-      (user) => this.user = user);
+
   }
 
   loginWithGoogle() {
-    this.auth.loginWithGoogle().then((result) => {
-      this.router.navigateByUrl('dashboard');
-    //   this.verifiedUsers.forEach(data => {
-    //     var check = false;
-    //     for (var item of data) {
-    //       if (item.uid === this.auth.getCurrentUser().uid) {
-    //         check = true;
-    //         break;
-    //       }
-    //     }
-    //     if (check) {
-    //       this.router.navigateByUrl('dashboard');
-    //     } else  {
-    //       this.router.navigateByUrl('error');
-    //     }
-    //   });
-    // });
+    this.auth.loginWithGoogle().then(() => {
+      const verified = this.verUser.getVerifiedUsers();
+      verified.forEach((data) => {
+        const currUid = this.afAuth.auth.currentUser.uid;
+        for (const uid of Object.values(data)) {
+          if (uid === currUid) {
+            this.router.navigateByUrl('dashboard');
+          }
+        }
+      });
     });
   }
 }

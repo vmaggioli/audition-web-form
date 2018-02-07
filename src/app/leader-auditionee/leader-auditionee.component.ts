@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import { Component, NgModule, OnInit, ComponentFactoryResolver, ViewContainerRef, ViewChild, 
 	AfterViewInit, ComponentRef, ChangeDetectorRef } from '@angular/core';
+=======
+import { Component, NgModule, OnInit, ComponentFactoryResolver, ViewContainerRef, ViewChild, AfterViewInit,
+	ComponentRef, ChangeDetectorRef } from '@angular/core';
+>>>>>>> master
 import { BrowserModule } from '@angular/platform-browser';
 import { JudgementComponent } from '../judgement/judgement.component';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
@@ -10,8 +15,6 @@ import { StudentLeadersService } from '../shared/student-leaders.service';
 import { Observable } from 'rxjs/Observable';
 import { AuditioneesService } from '../shared/auditionees.service';
 import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/filter';
 
 @Component({
 	selector: 'app-leader-auditionee',
@@ -21,12 +24,22 @@ import 'rxjs/add/operator/filter';
 export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	@ViewChild('target', { read: ViewContainerRef }) target: ViewContainerRef;
 	public judgementList: Array<ComponentRef<JudgementComponent>> = [];
-	public studentLeader = '';
-	public auditionee = '';
-	public auditioneeList: Array<any> = [];
-	public slList: Observable<string[]>;
-	public myControl: FormControl = new FormControl();
-	public filteredOptions: Observable<string[]>;
+	public studentLeader: string;
+	public auditionee: string;
+	public section: string;
+
+	readonly SECTIONS = [
+		'Piccolos',
+		'Clarinets',
+		'Alto Saxophones',
+		'Tenor Saxophones',
+		'Trumpets',
+		'Mellophones',
+		'Trombones',
+		'Baritones',
+		'Tubas',
+		'Big Ten Flags'
+	];
 
 	constructor(private cfr: ComponentFactoryResolver,
 							private db: AngularFireDatabase,
@@ -35,21 +48,6 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 							private auditService: AuditioneesService) { }
 
 	ngOnInit() {
-		// fill student leaders list
-		this.slList = this.service.getStudentLeaders().valueChanges();
-
-		// fill auditionees list
-		this.auditService.getAuditionees().forEach(data => {
-			for (const item of data) {
-				this.auditioneeList.push(item);
-			}
-			this.filteredOptions = this.myControl.valueChanges.startWith(null).map(val =>
-				val ? this.filter(val) : this.auditioneeList.slice());
-		});
-	}
-
-	filter(val: string): any[] {
-		return this.auditioneeList.filter(option => option.toLowerCase().indexOf(val.toLowerCase()) === 0);
 	}
 
 	ngAfterViewInit() {
@@ -66,11 +64,13 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 		for (const item of this.judgementList) {
 			const instance = item.instance;
 			const newJudgement = {
+				auditionee: this.auditionee,
 				studentLeader: this.studentLeader,
 				criteria: instance.getCriteria(),
+				goodBad: instance.getGoodOrBad(),
 				comment: instance.getComment()
 			};
-			this.db.list('Trumpets/Comments/' + this.auditionee + '/' + instance.getGoodOrBad()).push(newJudgement);
+			this.db.list(this.section).push(newJudgement);
 		}
 		this.target.clear();
 		this.judgementList = [];
