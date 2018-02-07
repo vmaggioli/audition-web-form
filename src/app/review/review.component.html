@@ -1,4 +1,17 @@
 <div class="example-container mat-elevation-z8">
+
+    <mat-form-field>
+        <mat-select placeholder="Section" [(ngModel)]="section" (ngModelChange)="setData()" required>
+            <mat-option *ngFor="let obj of this.SECTIONS" [value]="obj">
+                {{obj}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput type="text" placeholder="Filter" [(ngModel)]="auditionee" (keyup)="applyFilter($event.target.value)">
+    </mat-form-field>
+
     <mat-table #table [dataSource]="dataSource">
 
         <!-- Auditionee Column -->
