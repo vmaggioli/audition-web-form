@@ -4,11 +4,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DynamicModule } from './dynamic-module';
 import { MatInputModule, MatButtonModule, MatSelectModule, MatAutocompleteModule,
-<<<<<<< HEAD
-  MatOptionModule, MatRadioModule, MatTabsModule, MatTableModule } from '@angular/material';
-=======
-  MatOptionModule, MatRadioModule, MatTabsModule } from '@angular/material';
->>>>>>> master
+    MatOptionModule, MatRadioModule, MatTabsModule, MatTableModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -17,10 +13,6 @@ import { AppComponent } from './app.component';
 import { JudgementComponent } from './judgement/judgement.component';
 import { LeaderAuditioneeComponent } from './leader-auditionee/leader-auditionee.component';
 import { WelcomeComponent } from './welcome/welcome.component';
-<<<<<<< HEAD
-import { SignInErrorComponent } from './error/sign-in-error.component';
-=======
->>>>>>> master
 import { TabPageComponent } from './tab-page/tab-page.component';
 import { ReviewComponent } from './review/review.component';
 
@@ -41,14 +33,8 @@ import { CommentsService } from './shared/comments.service';
     LeaderAuditioneeComponent,
     JudgementComponent,
     WelcomeComponent,
-<<<<<<< HEAD
-    SignInErrorComponent,
-    TabPageComponent,
-    ReviewComponent,
-=======
     TabPageComponent,
     ReviewComponent
->>>>>>> master
   ],
   entryComponents: [ JudgementComponent ],
   imports: [
@@ -68,12 +54,8 @@ import { CommentsService } from './shared/comments.service';
     MatOptionModule,
     MatInputModule,
     MatRadioModule,
-<<<<<<< HEAD
     MatTabsModule,
     MatTableModule,
-=======
-    MatTabsModule
->>>>>>> master
   ],
   providers: [
     AuthService,
