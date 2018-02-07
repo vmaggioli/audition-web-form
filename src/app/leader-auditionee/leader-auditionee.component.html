@@ -1,11 +1,21 @@
 <div class="leaderAuditionee">
+	
 	<mat-form-field>
-			<input matInput type="text" placeholder="Student Leader" [(ngModel)]="studentLeader" required>
+		<mat-select placeholder="Section" [(ngModel)]="section" name="section" required>
+			<mat-option *ngFor="let obj of this.SECTIONS" [value]="obj">
+				{{obj}}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+
+	<mat-form-field>
+		<input matInput type="text" placeholder="Student Leader" [(ngModel)]="studentLeader" required>
 	</mat-form-field>
 
 	<mat-form-field>
 		<input matInput type="text" placeholder="Auditionee" [(ngModel)]="auditionee" required>
 	</mat-form-field>
+
 	<div>
 		<ng-template #target></ng-template>
 	</div>

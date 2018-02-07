@@ -6,8 +6,7 @@ import { TabPageComponent } from './tab-page/tab-page.component';
 import { LoginGuard } from './shared/login-guard.module';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: 'welcome', pathMatch: 'full'},
-  { path: 'welcome', component: WelcomeComponent },
+  { path: '', component: WelcomeComponent },
   { path: 'dashboard', component: TabPageComponent, canActivate: [LoginGuard] }
 ];
 
