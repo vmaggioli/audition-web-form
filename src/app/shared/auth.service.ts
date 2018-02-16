@@ -1,44 +1,33 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { Router } from '@angular/router';
-import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
-import * as firebase from 'firebase/app';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable()
 export class AuthService {
-  private authState: Observable<firebase.User>;
-  private currentUser: firebase.User = null;
 
-  constructor(public afAuth: AngularFireAuth) {
-    this.authState = this.afAuth.authState;
-    this.authState.subscribe(user => {
-      if (user) {
-        this.currentUser = user;
+  private loggedIn = false;
+
+  constructor(private db: AngularFireDatabase,
+              private router: Router,
+              private snackBar: MatSnackBar) { }
+
+  login(username: string, password: string) {
+    const user: Observable<any> = this.db.object('User').valueChanges();
+    user.forEach(data => {
+      if (username === data.username && password === data.password) {
+        this.router.navigateByUrl('dashboard');
+        this.loggedIn = true;
       } else {
-        this.currentUser = null;
+        this.snackBar.open('Invalid login', 'Close', {
+          duration: 3000
+        });
       }
     });
   }
 
-  getAuthState() {
-    return this.authState;
-  }
-
-  loginWithGoogle() {
-    return this.afAuth.auth.signInWithPopup(
-      new firebase.auth.GoogleAuthProvider()).then((result) => {
-        this.currentUser = result.user;
-      });
-  }
-
-  logoutWithGoogle() {
-    return this.afAuth.auth.signOut().then((result) => {
-      this.currentUser = null;
-    });
-  }
-
-  getCurrentUser() {
-    return this.currentUser;
+  isLoggedIn(): boolean {
+    return this.loggedIn;
   }
 }

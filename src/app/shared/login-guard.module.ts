@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 import { AuthService } from './auth.service';
 
 @Injectable()
 export class LoginGuard implements CanActivate {
 
-  constructor(private authService: AuthService,
+  constructor(private auth: AuthService,
               private router: Router) {}
 
   canActivate() {
-    if (this.authService.getCurrentUser() == null) {
-      this.router.navigateByUrl('welcome');
-      return false;
+    if (this.auth.isLoggedIn()) {
+      return true;
     }
-    return true;
+    this.router.navigateByUrl('');
+    return false;
   }
 }
