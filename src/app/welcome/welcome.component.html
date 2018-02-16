@@ -1,4 +1,16 @@
-<h1>Welcome to AAMB Selections!</h1>
-<br>
-<button mat-button (click)='loginWithGoogle()'>Login to Google</button>
-<router-outlet></router-outlet>
+ <div class="welcome" >
+    <h1>Welcome to AAMB Selections!</h1>
+    <br>
+    <mat-form-field>
+        <input matInput [(ngModel)]="username" placeholder="Username">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput type="password" [(ngModel)]="password" placeholder="Password">
+    </mat-form-field>
+    <br>
+    <div class="login-button">
+        <button mat-raised-button color="primary" (click)="login()">Login</button>
+    </div>
+    <router-outlet></router-outlet>
+</div>
