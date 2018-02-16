@@ -4,7 +4,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DynamicModule } from './dynamic-module';
 import { MatInputModule, MatButtonModule, MatSelectModule, MatAutocompleteModule,
-    MatOptionModule, MatRadioModule, MatTabsModule, MatTableModule, MatFormFieldModule } from '@angular/material';
+  MatOptionModule, MatRadioModule, MatTabsModule, MatTableModule, MatFormFieldModule,
+  MatSnackBarModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -51,12 +52,13 @@ import { AuthService } from './shared/auth.service';
     MatRadioModule,
     MatTabsModule,
     MatTableModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSnackBarModule,
   ],
   providers: [
+    AuthService,
     LoginGuard,
     CommentsService,
-    AuthService
   ],
   bootstrap: [AppComponent]
 })
