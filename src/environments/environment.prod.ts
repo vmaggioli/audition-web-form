@@ -7,5 +7,4 @@ export const environment = {
     projectId: "audition-web-form-bba4c",
     storageBucket: "audition-web-form-bba4c.appspot.com",
     messagingSenderId: "627879302465"
-  }
 };
