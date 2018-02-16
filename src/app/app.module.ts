@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DynamicModule } from './dynamic-module';
 import { MatInputModule, MatButtonModule, MatSelectModule, MatAutocompleteModule,
-    MatOptionModule, MatRadioModule, MatTabsModule, MatTableModule } from '@angular/material';
+    MatOptionModule, MatRadioModule, MatTabsModule, MatTableModule, MatFormFieldModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,14 +18,10 @@ import { ReviewComponent } from './review/review.component';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AuthService } from './shared/auth.service';
 import { environment } from '../environments/environment';
 import * as firebase from 'firebase';
-import { VerifiedUsersService } from './shared/verified-users.service';
-import { StudentLeadersService } from './shared/student-leaders.service';
-import { AuditioneesService } from './shared/auditionees.service';
 import { CommentsService } from './shared/comments.service';
+import { AuthService } from './shared/auth.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +39,6 @@ import { CommentsService } from './shared/comments.service';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'audition-web-form'),
     AngularFireDatabaseModule,
-    AngularFireAuthModule,
     DynamicModule.withComponents([JudgementComponent]),
     MatButtonModule,
     FormsModule,
@@ -56,14 +51,12 @@ import { CommentsService } from './shared/comments.service';
     MatRadioModule,
     MatTabsModule,
     MatTableModule,
+    MatFormFieldModule
   ],
   providers: [
-    AuthService,
     LoginGuard,
-    VerifiedUsersService,
-    StudentLeadersService,
-    AuditioneesService,
     CommentsService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
