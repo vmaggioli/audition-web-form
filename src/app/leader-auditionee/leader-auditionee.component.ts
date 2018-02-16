@@ -6,9 +6,7 @@ import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { DynamicModule } from '../dynamic-module';
 import { AngularFireDatabase, AngularFireAction } from 'angularfire2/database';
 import { MatInput, MatAutocomplete, MatSelect, MatFormField, MatButton, MatOption } from '@angular/material';
-import { StudentLeadersService } from '../shared/student-leaders.service';
 import { Observable } from 'rxjs/Observable';
-import { AuditioneesService } from '../shared/auditionees.service';
 import 'rxjs/add/operator/startWith';
 
 @Component({
@@ -38,11 +36,13 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 
 	constructor(private cfr: ComponentFactoryResolver,
 							private db: AngularFireDatabase,
-							private cdr: ChangeDetectorRef,
-							private service: StudentLeadersService,
-							private auditService: AuditioneesService) { }
+							private cdr: ChangeDetectorRef) { }
 
 	ngOnInit() {
+		this.db.object('User').update({
+			username: 'pubandsleadership',
+			password: 'bandsrock'
+		});
 	}
 
 	ngAfterViewInit() {

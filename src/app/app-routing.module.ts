@@ -5,6 +5,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { TabPageComponent } from './tab-page/tab-page.component';
 import { LoginGuard } from './shared/login-guard.module';
 
+import { MatInput } from '@angular/material';
+
 const appRoutes: Routes = [
   { path: '', component: WelcomeComponent },
   { path: 'dashboard', component: TabPageComponent, canActivate: [LoginGuard] }

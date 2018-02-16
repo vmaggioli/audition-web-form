@@ -1,29 +1,26 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { Router } from '@angular/router';
-import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
-import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
-  private authState: Observable<firebase.User>;
 
-  constructor(public afAuth: AngularFireAuth) {  }
+  loggedIn = false;
 
-  getAuthState(): Observable<firebase.User> {
-    return this.authState;
+  constructor(private db: AngularFireDatabase,
+              private router: Router) { }
+
+  login(username: string, password: string) {
+    const user: Observable<any> = this.db.object('User').valueChanges();
+    user.forEach(data => {
+      if (username === data.username && password === data.password) {
+        this.loggedIn = true;
+        this.router.navigateByUrl('dashboard');
+      } else {
+        this.router.navigateByUrl('');
+      }
+    });
   }
-
-  loginWithGoogle(): Promise<any> {
-    return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-  }
-
-  logoutWithGoogle(): Promise<any> {
-    return this.afAuth.auth.signOut();
-  }
-
-  getCurrentUser(): firebase.User {
-    return this.afAuth.auth.currentUser;
-  }
+  
 }
