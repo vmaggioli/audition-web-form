@@ -61,6 +61,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 			this.snackBar.open('Error: No Section', 'Close', {
 				duration: 3000
 			});
+			return false;
 		} else if (this.studentLeader === '') {
 			this.snackBar.open('Error: No Student Leader', 'Close', {
 				duration: 3000
