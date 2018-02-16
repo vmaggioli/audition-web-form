@@ -6,11 +6,11 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyD4MxWhFyC3OJf8jSAt_qgrhN-UkKxufYE",
-    authDomain: "audition-web-form-bba4c.firebaseapp.com",
-    databaseURL: "https://audition-web-form-bba4c.firebaseio.com",
-    projectId: "audition-web-form-bba4c",
-    storageBucket: "audition-web-form-bba4c.appspot.com",
-    messagingSenderId: "627879302465"
+    apiKey: "AIzaSyCSQzTd0t1TN7bhRHgTtf2vKtX3GBz7x-8",
+    authDomain: "audition-web-form-dev.firebaseapp.com",
+    databaseURL: "https://audition-web-form-dev.firebaseio.com",
+    projectId: "audition-web-form-dev",
+    storageBucket: "audition-web-form-dev.appspot.com",
+    messagingSenderId: "63752872308"
   }
 };
