@@ -22,10 +22,10 @@ export class JudgementComponent implements AfterViewInit {
     'Personal - Initiative',
     'Personal - Attitude'
   ];
-  private section: string;
-  public criteria: string;
-  public comment: string;
-  public goodOrBad: string;
+  private section = '';
+  public criteria = '';
+  public comment = '';
+  public goodOrBad = '';
 
   constructor(private cdr: ChangeDetectorRef) { }
 

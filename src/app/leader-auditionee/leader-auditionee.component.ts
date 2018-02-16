@@ -5,7 +5,7 @@ import { JudgementComponent } from '../judgement/judgement.component';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { DynamicModule } from '../dynamic-module';
 import { AngularFireDatabase, AngularFireAction } from 'angularfire2/database';
-import { MatInput, MatAutocomplete, MatSelect, MatFormField, MatButton, MatOption } from '@angular/material';
+import { MatInput, MatAutocomplete, MatSelect, MatFormField, MatButton, MatOption, MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
 
@@ -17,9 +17,9 @@ import 'rxjs/add/operator/startWith';
 export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	@ViewChild('target', { read: ViewContainerRef }) target: ViewContainerRef;
 	public judgementList: Array<ComponentRef<JudgementComponent>> = [];
-	public studentLeader: string;
-	public auditionee: string;
-	public section: string;
+	public studentLeader = '';
+	public auditionee = '';
+	public section = '';
 
 	readonly SECTIONS = [
 		'Piccolos',
@@ -36,7 +36,8 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 
 	constructor(private cfr: ComponentFactoryResolver,
 							private db: AngularFireDatabase,
-							private cdr: ChangeDetectorRef) { }
+							private cdr: ChangeDetectorRef,
+							private snackBar: MatSnackBar) { }
 
 	ngOnInit() {
 		this.db.object('User').update({
@@ -55,7 +56,43 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 		this.cdr.detectChanges();
 	}
 
-	public submitComment() {
+	private isValidForm(): boolean {
+		if (this.section === '') {
+			this.snackBar.open('Error: No Section', 'Close', {
+				duration: 3000
+			});
+		} else if (this.studentLeader === '') {
+			this.snackBar.open('Error: No Student Leader', 'Close', {
+				duration: 3000
+			});
+			return false;
+		} else if (this.auditionee === '') {
+			this.snackBar.open('Error: No Auditionee', 'Close', {
+				duration: 3000
+			});
+			return false;
+		}
+		for (const item of this.judgementList) {
+			const instance = item.instance;
+			if (instance.criteria === '') {
+				this.snackBar.open('Error: No Criteria', 'Close', {
+					duration: 3000
+				});
+				return false;
+			} else if (instance.goodOrBad === '') {
+				this.snackBar.open('Error: No Good or Bad', 'Close', {
+					duration: 3000
+				});
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public submitComment(): void {
+		if (!this.isValidForm()) {
+			return;
+		}
 		for (const item of this.judgementList) {
 			const instance = item.instance;
 			const newJudgement = {
