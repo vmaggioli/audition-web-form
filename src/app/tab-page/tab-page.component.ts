@@ -5,12 +5,12 @@ import { MatTabsModule } from '@angular/material';
 
 @Component({
     selector: 'app-tab-page',
-    templateUrl: './tab-page.component.html'
+    templateUrl: './tab-page.component.html',
+    styleUrls: ['./tab-page.component.css']
 })
 
 export class TabPageComponent implements OnInit {
     
     ngOnInit() {
-
-    }
+}
 }
