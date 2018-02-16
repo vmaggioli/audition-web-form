@@ -7,7 +7,11 @@ import { DynamicModule } from '../dynamic-module';
 import { AngularFireDatabase, AngularFireAction } from 'angularfire2/database';
 import { MatInput, MatAutocomplete, MatSelect, MatFormField, MatButton, MatOption, MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/startWith';
+import * as firebase from 'firebase';
+import { AuditioneesService } from '../shared/auditionees.service';
+import { StudentLeadersService } from '../shared/student-leaders.service';
+import { startWith } from 'rxjs/operators/startWith';
+import { map } from 'rxjs/operators/map';
 
 @Component({
 	selector: 'app-leader-auditionee',
@@ -20,6 +24,12 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	public studentLeader = '';
 	public auditionee = '';
 	public section = '';
+	public auditioneeList = [];
+	public auditioneeListFiltered: Observable<string[]>;
+	public studentLeaderList = [];
+	public studentLeaderListFiltered: Observable<string[]>;
+	myControlLeaders: FormControl = new FormControl();
+	myControlAuditionees: FormControl = new FormControl();
 
 	readonly SECTIONS = [
 		'Piccolos',
@@ -37,13 +47,11 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	constructor(private cfr: ComponentFactoryResolver,
 							private db: AngularFireDatabase,
 							private cdr: ChangeDetectorRef,
-							private snackBar: MatSnackBar) { }
+							private snackBar: MatSnackBar,
+							private auditServ: AuditioneesService,
+							private slServ: StudentLeadersService) { }
 
 	ngOnInit() {
-		this.db.object('User').update({
-			username: 'pubandsleadership',
-			password: 'bandsrock'
-		});
 	}
 
 	ngAfterViewInit() {
@@ -94,19 +102,79 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 		if (!this.isValidForm()) {
 			return;
 		}
+
+		// Submit comment
 		for (const item of this.judgementList) {
 			const instance = item.instance;
 			const newJudgement = {
-				auditionee: this.auditionee,
-				studentLeader: this.studentLeader,
+				auditionee: this.convertNameCase(this.auditionee.toLowerCase()),
+				studentLeader: this.convertNameCase(this.studentLeader.toLowerCase()),
 				criteria: instance.getCriteria(),
 				goodBad: instance.getGoodOrBad(),
 				comment: instance.getComment()
 			};
-			this.db.list(this.section).push(newJudgement);
+			firebase.database().ref('Comments/' + this.section).push(newJudgement);
 		}
+
+		// Add auditionee and SL to DB
+		firebase.database().ref('Auditionees/' + this.convertNameCase(this.auditionee.toLowerCase())).update({
+			name: this.convertNameCase(this.auditionee.toLowerCase()),
+			section: this.section
+		});
+		firebase.database().ref('Student Leaders/' + this.convertNameCase(this.studentLeader.toLowerCase())).update({
+			name: this.convertNameCase(this.studentLeader.toLowerCase()),
+			section: this.section
+		});
+
+		// Clear form
 		this.target.clear();
 		this.judgementList = [];
 		this.putInMyHtml();
+	}
+
+	public convertNameCase(name: string) {
+		const nameArr = name.split(' ');
+		let fullName = '';
+		for (var i = 0; i < nameArr.length; i++) {
+			nameArr[i] = nameArr[i].charAt(0).toUpperCase() + nameArr[i].substring(1, nameArr[i].length);
+			fullName += ' ' + nameArr[i];
+		}
+		return fullName.trim();
+	}
+
+	public sectionChange() {
+		this.auditServ.getAuditionees().subscribe(data => {
+			const section = this.section
+			this.auditioneeList = data.filter(function (el) {
+				return el.section === section;
+			});
+			this.auditioneeListFiltered = this.myControlAuditionees.valueChanges
+				.pipe(
+					startWith(''),
+					map(name => this.filterAuditionees(name))
+				);
+		});
+
+		this.slServ.getStudentLeaders().subscribe(data => {
+			const section = this.section
+			this.studentLeaderList = data.filter(function (el) {
+				return el.section === section;
+			});
+			this.studentLeaderListFiltered = this.myControlLeaders.valueChanges
+				.pipe(
+					startWith(''),
+					map(name => this.filterStudentLeaders(name))
+				);
+		});
+	}
+
+	public filterAuditionees(name: any): any[] {
+		return this.auditioneeList.filter(auditionee =>
+			auditionee.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
+	}
+
+	public filterStudentLeaders(name: any): any[] {
+		return this.studentLeaderList.filter(sl =>
+			sl.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
 	}
 }
