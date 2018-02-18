@@ -62,4 +62,10 @@ import { AuthService } from './shared/auth.service';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+  constructor() {
+    firebase.initializeApp(environment.firebase);
+  }
+
+}
