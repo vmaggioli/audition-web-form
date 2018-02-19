@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuditioneesService {
 
-  constructor() { }
+  constructor(public db: AngularFireDatabase) { }
 
-  public getAuditionees(): Promise<any> {
-    return firebase.database().ref('Trumpets/Auditionees').once('value');
+  public getAuditionees(): Observable<any> {
+    return this.db.list('Auditionees').valueChanges();
   }
 }
