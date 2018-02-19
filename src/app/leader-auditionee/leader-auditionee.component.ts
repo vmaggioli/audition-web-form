@@ -7,7 +7,7 @@ import { DynamicModule } from '../dynamic-module';
 import { AngularFireDatabase, AngularFireAction } from 'angularfire2/database';
 import { MatInput, MatAutocomplete, MatSelect, MatFormField, MatButton, MatOption, MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/startWith';
+import * as firebase from 'firebase';
 
 @Component({
 	selector: 'app-leader-auditionee',
@@ -94,19 +94,41 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 		if (!this.isValidForm()) {
 			return;
 		}
+
+		// Submit comment
 		for (const item of this.judgementList) {
 			const instance = item.instance;
 			const newJudgement = {
-				auditionee: this.auditionee,
-				studentLeader: this.studentLeader,
+				auditionee: this.convertNameCase(this.auditionee.toLowerCase()),
+				studentLeader: this.convertNameCase(this.studentLeader.toLowerCase()),
 				criteria: instance.getCriteria(),
 				goodBad: instance.getGoodOrBad(),
 				comment: instance.getComment()
 			};
-			this.db.list(this.section).push(newJudgement);
+			firebase.database().ref('Comments/' + this.section).push(newJudgement);
 		}
+
+		// Add auditionee and SL to DB
+		firebase.database().ref('Auditionees/' + this.convertNameCase(this.auditionee.toLowerCase())).update({
+			section: this.section
+		});
+		firebase.database().ref('Student Leaders/' + this.convertNameCase(this.studentLeader.toLowerCase())).update({
+			section: this.section
+		});
+
+		// Clear form
 		this.target.clear();
 		this.judgementList = [];
 		this.putInMyHtml();
+	}
+
+	public convertNameCase(name: string) {
+		const nameArr = name.split(' ');
+		let fullName = '';
+		for (var i = 0; i < nameArr.length; i++) {
+			nameArr[i] = nameArr[i].charAt(0).toUpperCase() + nameArr[i].substring(1, nameArr[i].length);
+			fullName += ' ' + nameArr[i];
+		}
+		return fullName;
 	}
 }

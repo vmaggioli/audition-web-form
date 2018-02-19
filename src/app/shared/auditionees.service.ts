@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import * as firebase from 'firebase';
 
 @Injectable()
 export class AuditioneesService {
 
-  constructor(private db: AngularFireDatabase) { }
+  constructor() { }
 
-  public getAuditionees(): AngularFireList<string[]> {
-    return this.db.list('Trumpets/Auditionees');
+  public getAuditionees(): Promise<any> {
+    return firebase.database().ref('Trumpets/Auditionees').once('value');
   }
 }
