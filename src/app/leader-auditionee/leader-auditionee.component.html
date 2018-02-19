@@ -1,24 +1,36 @@
 <div class="leaderAuditionee">
 
-	<mat-form-field>
-		<mat-select placeholder="Section" [(ngModel)]="section" name="section" required>
-			<mat-option *ngFor="let obj of this.SECTIONS" [value]="obj">
-				{{obj}}
-			</mat-option>
-		</mat-select>
-	</mat-form-field>
+	<form class="form-field">
+		<mat-form-field>
+			<mat-select placeholder="Section" [(ngModel)]="section" name="section" (ngModelChange)="this.sectionChange()" required>
+				<mat-option *ngFor="let obj of this.SECTIONS" [value]="obj">
+					{{obj}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
 
-	<mat-form-field>
-		<input matInput type="text" placeholder="Student Leader" [(ngModel)]="studentLeader" required>
-	</mat-form-field>
+		<mat-form-field >
+			<input matInput type="text" name="studentLeader" placeholder="Student Leader" [(ngModel)]="studentLeader" [formControl]="myControlLeaders" [matAutocomplete]="auto1" required>
+			<mat-autocomplete #auto1="matAutocomplete">
+				<mat-option *ngFor="let leader of studentLeaderListFiltered | async" [value]="leader.name">
+					{{ leader.name }}
+				</mat-option>
+			</mat-autocomplete>
+		</mat-form-field>
 
-	<mat-form-field>
-		<input matInput type="text" placeholder="Auditionee" [(ngModel)]="auditionee" required>
-	</mat-form-field>
+		<mat-form-field>
+			<input matInput type="text" name="auditionee" placeholder="Auditionee" [(ngModel)]="auditionee" [formControl]="myControlAuditionees" [matAutocomplete]="auto2" required>
+			<mat-autocomplete #auto2="matAutocomplete">
+				<mat-option *ngFor="let auditionee of auditioneeListFiltered | async" [value]="auditionee.name">
+					{{ auditionee.name }}
+				</mat-option>
+			</mat-autocomplete>
+		</mat-form-field>
 
-	<div>
-		<ng-template #target></ng-template>
-	</div>
+		<div>
+			<ng-template #target></ng-template>
+		</div>
+	</form>
 	<button mat-raised-button color="primary" (click)="putInMyHtml()">Add another comment</button>
 	<br><br>
 	<button mat-raised-button color="primary" (click)="submitComment()" type="submit">Submit</button>

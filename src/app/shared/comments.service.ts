@@ -9,7 +9,7 @@ export class CommentsService {
   constructor(private db: AngularFireDatabase) {}
 
   getAllComments(section: string): Observable<any> {
-    return this.db.list(section).valueChanges();
+    return this.db.list('Comments/' + section).valueChanges();
   }
 
   wipeComments(): void {
