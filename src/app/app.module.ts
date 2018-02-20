@@ -23,6 +23,8 @@ import { environment } from '../environments/environment';
 import * as firebase from 'firebase';
 import { CommentsService } from './shared/comments.service';
 import { AuthService } from './shared/auth.service';
+import { AuditioneesService } from './shared/auditionees.service';
+import { StudentLeadersService } from './shared/student-leaders.service';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,15 @@ import { AuthService } from './shared/auth.service';
     AuthService,
     LoginGuard,
     CommentsService,
+    AuditioneesService,
+    StudentLeadersService,
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+  constructor() {
+    firebase.initializeApp(environment.firebase);
+  }
+
+}
