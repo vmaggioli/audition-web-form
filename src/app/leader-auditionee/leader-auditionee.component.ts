@@ -130,6 +130,10 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 		this.target.clear();
 		this.judgementList = [];
 		this.putInMyHtml();
+
+		this.snackBar.open('Comment(s) submitted', 'Close', {
+			duration: 3000
+		});
 	}
 
 	public convertNameCase(name: string) {
