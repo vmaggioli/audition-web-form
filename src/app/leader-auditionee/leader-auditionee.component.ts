@@ -170,12 +170,12 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 			);
 	}
 
-	public filterAuditionees(name: string): any[] {
+	public filterAuditionees(name: any): any[] {
 		return this.auditioneeList.filter(auditionee =>
 			auditionee.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
 	}
 
-	public filterStudentLeaders(name: string): any[] {
+	public filterStudentLeaders(name: any): any[] {
 		return this.studentLeaderList.filter(sl =>
 			sl.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
 	}
