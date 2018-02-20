@@ -21,16 +21,17 @@ export class WelcomeComponent implements OnInit {
               private comServ: CommentsService) { }
 
   ngOnInit() {
-    // DB resets at midnight on Nov 16
+    // DB resets at midnight on August 1
     const now = new Date();
-    const nowUTC = new Date(Date.UTC(now.getFullYear(), now.getMonth() + 1, now.getDate(), now.getHours(), now.getMinutes()));
+    const nowUTC = new Date(Date.UTC(now.getFullYear(), now.getMonth()
+    , now.getDate(), now.getHours(), now.getMinutes()));
     const serv = this.comServ;
     let waitTime;
     // Month is 0 indexed in Date
-    if (now.getMonth() === 11 || (now.getMonth() === 10 && now.getDate() > 16)) {
-      waitTime = new Date(now.getFullYear() + 1, 10, 16, 12, 0, 0, 0).getTime() - now.getTime();
+    if (now.getMonth() >= 8 || (now.getMonth() === 7 && now.getDate() > 1)) {
+      waitTime = new Date(Date.UTC(now.getFullYear() + 1, 7, 1, 12, 0, 0, 0)).getTime() - nowUTC.getTime();
     } else {
-      waitTime = new Date(Date.UTC(now.getFullYear(), 10, 16, 12, 0, 0, 0)).getTime() - now.getTime();
+      waitTime = new Date(Date.UTC(now.getFullYear(), 7, 1, 12, 0, 0, 0)).getTime() - nowUTC.getTime();
     }
     if (waitTime > 0) {
       setTimeout(function () {
