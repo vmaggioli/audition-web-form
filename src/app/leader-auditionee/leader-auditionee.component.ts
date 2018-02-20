@@ -139,35 +139,33 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 			nameArr[i] = nameArr[i].charAt(0).toUpperCase() + nameArr[i].substring(1, nameArr[i].length);
 			fullName += ' ' + nameArr[i];
 		}
-		return fullName;
+		return fullName.trim();
 	}
 
 	public sectionChange() {
 		this.auditServ.getAuditionees().subscribe(data => {
 			const section = this.section
 			this.auditioneeList = data.filter(function (el) {
-				return el.section = section;
+				return el.section === section;
 			});
+			this.auditioneeListFiltered = this.myControlAuditionees.valueChanges
+				.pipe(
+					startWith(''),
+					map(name => this.filterAuditionees(name))
+				);
 		});
-
-		this.auditioneeListFiltered = this.myControlAuditionees.valueChanges
-			.pipe(
-				startWith(''),
-				map(name => this.filterAuditionees(name))
-			);
 
 		this.slServ.getStudentLeaders().subscribe(data => {
 			const section = this.section
 			this.studentLeaderList = data.filter(function (el) {
-				return el.section = section;
+				return el.section === section;
 			});
+			this.studentLeaderListFiltered = this.myControlLeaders.valueChanges
+				.pipe(
+					startWith(''),
+					map(name => this.filterStudentLeaders(name))
+				);
 		});
-
-		this.studentLeaderListFiltered = this.myControlLeaders.valueChanges
-			.pipe(
-				startWith(''),
-				map(name => this.filterStudentLeaders(name))
-			);
 	}
 
 	public filterAuditionees(name: any): any[] {
