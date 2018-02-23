@@ -7,6 +7,14 @@
     </mat-form-field>
 
     <mat-form-field>
+        <mat-select placeholder="Time Span" [(ngModel)]="timeSpan" (ngModelChange)="setData()">
+            <mat-option>None</mat-option>
+            <mat-option value="Day">Day</mat-option>
+            <mat-option value="Week">Week</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
         <input matInput type="text" placeholder="Filter" [(ngModel)]="auditionee" (keyup)="applyFilter($event.target.value)">
     </mat-form-field>
 

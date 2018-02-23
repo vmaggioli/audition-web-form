@@ -107,22 +107,23 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 		for (const item of this.judgementList) {
 			const instance = item.instance;
 			const newJudgement = {
-				auditionee: this.convertNameCase(this.auditionee.toLowerCase()),
-				studentLeader: this.convertNameCase(this.studentLeader.toLowerCase()),
+				auditionee: this.convertNameCase(this.auditionee),
+				studentLeader: this.convertNameCase(this.studentLeader),
 				criteria: instance.getCriteria(),
 				goodBad: instance.getGoodOrBad(),
-				comment: instance.getComment()
+				comment: instance.getComment(),
+				date: new Date().getTime()
 			};
 			firebase.database().ref('Comments/' + this.section).push(newJudgement);
 		}
 
 		// Add auditionee and SL to DB
-		firebase.database().ref('Auditionees/' + this.convertNameCase(this.auditionee.toLowerCase())).update({
-			name: this.convertNameCase(this.auditionee.toLowerCase()),
+		firebase.database().ref('Auditionees/' + this.sanitizeName(this.auditionee.toLowerCase())).update({
+			name: this.convertNameCase(this.auditionee),
 			section: this.section
 		});
-		firebase.database().ref('Student Leaders/' + this.convertNameCase(this.studentLeader.toLowerCase())).update({
-			name: this.convertNameCase(this.studentLeader.toLowerCase()),
+		firebase.database().ref('Student Leaders/' + this.sanitizeName(this.studentLeader.toLowerCase())).update({
+			name: this.convertNameCase(this.studentLeader),
 			section: this.section
 		});
 
@@ -132,7 +133,11 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 		this.putInMyHtml();
 	}
 
-	public convertNameCase(name: string) {
+	public sanitizeName(name: string): string {
+		return name.trim().replace(/\$|\.|\#|\[|\]/g, '');
+	}
+
+	public convertNameCase(name: string): string {
 		const nameArr = name.split(' ');
 		let fullName = '';
 		for (var i = 0; i < nameArr.length; i++) {
@@ -142,7 +147,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 		return fullName.trim();
 	}
 
-	public sectionChange() {
+	public sectionChange(): void {
 		this.auditServ.getAuditionees().subscribe(data => {
 			const section = this.section
 			this.auditioneeList = data.filter(function (el) {
