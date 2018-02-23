@@ -9,7 +9,7 @@
 			</mat-select>
 		</mat-form-field>
 
-		<mat-form-field >
+		<mat-form-field *ngIf="this.section !== ''">
 			<input matInput type="text" name="studentLeader" placeholder="Student Leader" [(ngModel)]="studentLeader" [formControl]="myControlLeaders" [matAutocomplete]="auto1" required>
 			<mat-autocomplete #auto1="matAutocomplete">
 				<mat-option *ngFor="let leader of studentLeaderListFiltered | async" [value]="leader.name">
@@ -18,7 +18,7 @@
 			</mat-autocomplete>
 		</mat-form-field>
 
-		<mat-form-field>
+		<mat-form-field *ngIf="this.section !== ''">
 			<input matInput type="text" name="auditionee" placeholder="Auditionee" [(ngModel)]="auditionee" [formControl]="myControlAuditionees" [matAutocomplete]="auto2" required>
 			<mat-autocomplete #auto2="matAutocomplete">
 				<mat-option *ngFor="let auditionee of auditioneeListFiltered | async" [value]="auditionee.name">

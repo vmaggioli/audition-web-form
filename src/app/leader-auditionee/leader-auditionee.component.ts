@@ -52,6 +52,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 							private slServ: StudentLeadersService) { }
 
 	ngOnInit() {
+		console.log(this.section === '');
 	}
 
 	ngAfterViewInit() {
