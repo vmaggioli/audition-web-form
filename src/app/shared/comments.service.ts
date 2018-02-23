@@ -12,6 +12,22 @@ export class CommentsService {
     return this.db.list('Comments/' + section).valueChanges();
   }
 
+  getWeekComments(section: string): Observable<any> {
+    const now = new Date();
+    var day = now.getDay(),
+      diff = now.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
+    return this.db.list('Comments/' + section, ref => ref.orderByChild('date').startAt(
+      new Date(now.getFullYear(), now.getMonth(), diff, 12, 0, 0, 0).getTime()
+    )).valueChanges();
+  }
+
+  getDayComments(section: string): Observable<any> {
+    const now = new Date();
+    return this.db.list('Comments/' + section, ref => ref.orderByChild('date').startAt(
+      new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12, 0, 0, 0).getTime()
+    )).valueChanges()
+  }
+
   wipeComments(): void {
     let username = '';
     let pass = '';

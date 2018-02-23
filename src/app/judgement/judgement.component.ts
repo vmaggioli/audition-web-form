@@ -1,7 +1,6 @@
 import { Component, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { MatInput, MatRadioGroup, MatRadioButton, MatFormField, MatSelect, MatOption } from '@angular/material';
-import { CRITERIA } from '../criteria';
 
 @Component({
   selector: 'app-judgement',
