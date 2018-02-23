@@ -17,7 +17,7 @@ export class CommentsService {
     var day = now.getDay(),
       diff = now.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
     return this.db.list('Comments/' + section, ref => ref.orderByChild('date').startAt(
-      new Date(now.getFullYear(), now.getMonth(), diff, 12, 0, 0, 0).getTime()
+      new Date(now.getFullYear(), now.getMonth(), diff - 1, 12, 0, 0, 0).getTime()
     )).valueChanges();
   }
 
