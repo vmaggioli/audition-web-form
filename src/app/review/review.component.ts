@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Comment } from '../comment';
 import { MatSelect } from '@angular/material';
-import { Judgement } from '../judgement';
 
 @Component({
     selector: 'app-review',
@@ -15,10 +14,10 @@ import { Judgement } from '../judgement';
 
 export class ReviewComponent implements OnInit {
     displayedColumns = ['auditionee', 'studentLeader', 'criteria', 'goodBad', 'comment'];
-    section: string;
-    auditionee: string;
-    // dataSource = new CommentsDataSource(this.comService, this.section);
-    dataSource = new MatTableDataSource<Judgement>();
+    section = '';
+    auditionee = '';
+    dataSource = new MatTableDataSource<any>();
+    timeSpan: string;
 
     readonly SECTIONS = [
         'Piccolos',
@@ -40,9 +39,19 @@ export class ReviewComponent implements OnInit {
     }
 
     setData(): void {
-        this.comService.getAllComments(this.section).subscribe((data) => {
-            this.dataSource = new MatTableDataSource(data);
-        });
+        if (this.timeSpan === 'Week') {
+            this.comService.getWeekComments(this.section).subscribe((data) => {
+                this.dataSource = new MatTableDataSource(data.reverse());
+            });
+        } else if (this.timeSpan === 'Day') {
+            this.comService.getDayComments(this.section).subscribe((data) => {
+                this.dataSource = new MatTableDataSource(data.reverse());
+            });
+        } else {
+            this.comService.getAllComments(this.section).subscribe((data) => {
+                this.dataSource = new MatTableDataSource(data.reverse());
+            })
+        }
     }
 
     applyFilter(filterValue: string) {
@@ -51,17 +60,3 @@ export class ReviewComponent implements OnInit {
         this.dataSource.filter = filterValue;
     }
 }
-
-// export class CommentsDataSource extends DataSource<any> {
-
-//     constructor(private comService: CommentsService,
-//                 private section: string) {
-//         super();
-//     }
-
-//     connect() {
-//         return this.comService.getAllComments(this.section);
-//     }
-
-//     disconnect() { }
-// }
