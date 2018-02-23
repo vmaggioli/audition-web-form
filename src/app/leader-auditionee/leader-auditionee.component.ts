@@ -107,34 +107,35 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 		for (const item of this.judgementList) {
 			const instance = item.instance;
 			const newJudgement = {
-				auditionee: this.convertNameCase(this.auditionee),
-				studentLeader: this.convertNameCase(this.studentLeader),
+				auditionee: this.sanitize(this.convertNameCase(this.auditionee)),
+				studentLeader: this.sanitize(this.convertNameCase(this.studentLeader)),
 				criteria: instance.getCriteria(),
 				goodBad: instance.getGoodOrBad(),
-				comment: instance.getComment(),
+				comment: this.sanitize(instance.getComment()),
 				date: new Date().getTime()
 			};
 			firebase.database().ref('Comments/' + this.section).push(newJudgement);
 		}
 
 		// Add auditionee and SL to DB
-		firebase.database().ref('Auditionees/' + this.sanitizeName(this.auditionee.toLowerCase())).update({
+		firebase.database().ref('Auditionees/' + this.sanitize(this.auditionee.toLowerCase())).update({
 			name: this.convertNameCase(this.auditionee),
 			section: this.section
 		});
-		firebase.database().ref('Student Leaders/' + this.sanitizeName(this.studentLeader.toLowerCase())).update({
+		firebase.database().ref('Student Leaders/' + this.sanitize(this.studentLeader.toLowerCase())).update({
 			name: this.convertNameCase(this.studentLeader),
 			section: this.section
 		});
 
 		// Clear form
+		this.auditionee = '';
 		this.target.clear();
 		this.judgementList = [];
 		this.putInMyHtml();
 	}
 
-	public sanitizeName(name: string): string {
-		return name.trim().replace(/\$|\.|\#|\[|\]/g, '');
+	public sanitize(toSanitize: string): string {
+		return toSanitize.trim().replace(/\$|\.|\#|\[|\]|\\|\//g, '');
 	}
 
 	public convertNameCase(name: string): string {
