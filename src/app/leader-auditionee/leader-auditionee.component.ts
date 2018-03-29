@@ -44,6 +44,10 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 		'Big Ten Flags'
 	];
 
+	readonly MONTHNAMES = ["January", "February", "March", "April", "May", "June",
+		"July", "August", "September", "October", "November", "December"
+	];
+
 	constructor(private cfr: ComponentFactoryResolver,
 							private db: AngularFireDatabase,
 							private cdr: ChangeDetectorRef,
@@ -52,7 +56,6 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 							private slServ: StudentLeadersService) { }
 
 	ngOnInit() {
-		console.log(this.section === '');
 	}
 
 	ngAfterViewInit() {
@@ -113,7 +116,7 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 				criteria: instance.getCriteria(),
 				goodBad: instance.getGoodOrBad(),
 				comment: this.sanitize(instance.getComment()),
-				date: new Date().getTime()
+				date: this.dateConstructor(new Date())
 			};
 			firebase.database().ref('Comments/' + this.section).push(newJudgement);
 		}
@@ -183,5 +186,9 @@ export class LeaderAuditioneeComponent implements AfterViewInit, OnInit {
 	public filterStudentLeaders(name: any): any[] {
 		return this.studentLeaderList.filter(sl =>
 			sl.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
+	}
+
+	private dateConstructor(date: Date): string {
+		return this.MONTHNAMES[date.getMonth()] + ' ' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes();
 	}
 }

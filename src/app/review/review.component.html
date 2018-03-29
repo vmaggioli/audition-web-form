@@ -7,14 +7,6 @@
     </mat-form-field>
 
     <mat-form-field *ngIf="this.section !== ''">
-        <mat-select placeholder="Time Span" [(ngModel)]="timeSpan" (ngModelChange)="setData()">
-            <mat-option>None</mat-option>
-            <mat-option value="Day">Day</mat-option>
-            <mat-option value="Week">Week</mat-option>
-        </mat-select>
-    </mat-form-field>
-
-    <mat-form-field *ngIf="this.section !== ''">
         <input matInput type="text" placeholder="Filter" [(ngModel)]="auditionee" (keyup)="applyFilter($event.target.value)">
     </mat-form-field>
 
@@ -48,6 +40,12 @@
         <ng-container matColumnDef="comment">
             <mat-header-cell *matHeaderCellDef> Comment </mat-header-cell>
             <mat-cell *matCellDef="let data"> {{data.comment}} </mat-cell>
+        </ng-container>
+
+        <!-- Time Column -->
+        <ng-container matColumnDef="date">
+            <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+            <mat-cell *matCellDef="let data"> {{data.date}} </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

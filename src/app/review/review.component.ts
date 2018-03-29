@@ -14,11 +14,10 @@ import { MatSelect } from '@angular/material';
 })
 
 export class ReviewComponent implements OnInit {
-    displayedColumns = ['auditionee', 'studentLeader', 'criteria', 'goodBad', 'comment'];
+    displayedColumns = ['auditionee', 'studentLeader', 'criteria', 'goodBad', 'comment', 'date'];
     section = '';
     auditionee = '';
     dataSource = new MatTableDataSource<any>();
-    timeSpan: string;
 
     readonly SECTIONS = [
         'Piccolos',
@@ -40,19 +39,11 @@ export class ReviewComponent implements OnInit {
     }
 
     setData(): void {
-        if (this.timeSpan === 'Week') {
-            this.comService.getWeekComments(this.section).subscribe((data) => {
-                this.dataSource = new MatTableDataSource(data.reverse());
-            });
-        } else if (this.timeSpan === 'Day') {
-            this.comService.getDayComments(this.section).subscribe((data) => {
-                this.dataSource = new MatTableDataSource(data.reverse());
-            });
-        } else {
-            this.comService.getAllComments(this.section).subscribe((data) => {
-                this.dataSource = new MatTableDataSource(data.reverse());
-            })
-        }
+        this.comService.getAllComments(this.section).then((snapshot) => {
+            if (snapshot.val() !== null) {
+                this.dataSource = new MatTableDataSource(Object.values(snapshot.val()).reverse());
+            }
+        });
     }
 
     applyFilter(filterValue: string) {
