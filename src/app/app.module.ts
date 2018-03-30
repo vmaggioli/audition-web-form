@@ -9,7 +9,8 @@ import { MatInputModule, MatButtonModule, MatSelectModule, MatAutocompleteModule
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
-import { LoginGuard } from './shared/login-guard.module';
+import { LoginGuardStandard } from './shared/login-guard-standard.module';
+import { LoginGuardAdmin } from './shared/login-guard-admin.module';
 import { AppComponent } from './app.component';
 import { JudgementComponent } from './judgement/judgement.component';
 import { LeaderAuditioneeComponent } from './leader-auditionee/leader-auditionee.component';
@@ -25,6 +26,9 @@ import { CommentsService } from './shared/comments.service';
 import { AuthService } from './shared/auth.service';
 import { AuditioneesService } from './shared/auditionees.service';
 import { StudentLeadersService } from './shared/student-leaders.service';
+import { CookieService } from 'ngx-cookie-service';
+import { UsersService } from './shared/users.service';
+import { Page404Component } from './page404/page404.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,8 @@ import { StudentLeadersService } from './shared/student-leaders.service';
     JudgementComponent,
     WelcomeComponent,
     TabPageComponent,
-    ReviewComponent
+    ReviewComponent,
+    Page404Component,
   ],
   entryComponents: [ JudgementComponent ],
   imports: [
@@ -59,10 +64,13 @@ import { StudentLeadersService } from './shared/student-leaders.service';
   ],
   providers: [
     AuthService,
-    LoginGuard,
+    LoginGuardStandard,
+    LoginGuardAdmin,
     CommentsService,
     AuditioneesService,
     StudentLeadersService,
+    CookieService,
+    UsersService,
   ],
   bootstrap: [AppComponent]
 })

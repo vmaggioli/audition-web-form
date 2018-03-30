@@ -14,7 +14,7 @@ import { MatSelect } from '@angular/material';
 })
 
 export class ReviewComponent implements OnInit {
-    displayedColumns = ['auditionee', 'studentLeader', 'criteria', 'goodBad', 'comment', 'date'];
+    readonly displayedColumns = ['auditionee', 'studentLeader', 'criteria', 'goodBad', 'comment', 'date'];
     section = '';
     auditionee = '';
     dataSource = new MatTableDataSource<any>();
