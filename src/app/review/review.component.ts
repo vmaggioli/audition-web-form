@@ -41,7 +41,16 @@ export class ReviewComponent implements OnInit {
     setData(): void {
         this.comService.getAllComments(this.section).then((snapshot) => {
             if (snapshot.val() !== null) {
-                this.dataSource = new MatTableDataSource(Object.values(snapshot.val()).reverse());
+                var data = Object.values(snapshot.val()).reverse().sort(function(a: any, b: any): number {
+                    if (a.auditionee > b.auditionee) {
+                        return 1;
+                    } else if (a.auditionee < b.auditionee) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                });
+                this.dataSource = new MatTableDataSource(data);
             }
         });
     }
