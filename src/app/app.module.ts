@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { DynamicModule } from './dynamic-module';
 import { MatInputModule, MatButtonModule, MatSelectModule, MatAutocompleteModule,
   MatOptionModule, MatRadioModule, MatTabsModule, MatTableModule, MatFormFieldModule,
-  MatSnackBarModule } from '@angular/material';
+  MatSnackBarModule, MatPaginatorModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -61,6 +61,7 @@ import { Page404Component } from './page404/page404.component';
     MatTableModule,
     MatFormFieldModule,
     MatSnackBarModule,
+    MatPaginatorModule,
   ],
   providers: [
     AuthService,

@@ -4,6 +4,7 @@ import { MatButton, MatInput, MatSnackBar } from '@angular/material';
 import * as firebase from 'firebase';
 import { AuthService } from '../shared/auth.service';
 import { CommentsService } from '../shared/comments.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-welcome',
@@ -18,10 +19,13 @@ export class WelcomeComponent implements OnInit {
   constructor(private router: Router,
               private auth: AuthService,
               private snackBar: MatSnackBar,
-              private comServ: CommentsService) { }
+              private comServ: CommentsService,
+              private cookieServ: CookieService) { }
 
   ngOnInit() {
-}
+    this.cookieServ.set('user', null);
+    this.cookieServ.set('section', null);
+  }
 
   login(): void {
     this.auth.login(this.username, this.password);

@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { CommentsService } from '../shared/comments.service';
 import { DataSource } from '@angular/cdk/collections';
-import { MatTable, MatTableDataSource } from '@angular/material';
+import { MatTable, MatTableDataSource, MatPaginator, MatSelect } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Comment } from '../comment';
-import { MatSelect } from '@angular/material';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'app-review',
@@ -14,6 +14,9 @@ import { MatSelect } from '@angular/material';
 })
 
 export class ReviewComponent implements OnInit {
+
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+
     readonly displayedColumns = ['auditionee', 'studentLeader', 'criteria', 'goodBad', 'comment', 'date'];
     section = '';
     auditionee = '';
@@ -33,15 +36,35 @@ export class ReviewComponent implements OnInit {
     ];
 
     constructor(private db: AngularFireDatabase,
-        private comService: CommentsService) { }
+        private comService: CommentsService,
+        private cookieService: CookieService) { }
 
     ngOnInit() {
+        if (this.cookieService.get('section') !== null) {
+            this.section = this.cookieService.get('section');
+            this.setData();
+        }
+    }
+
+    ngAfterViewInit() {
+        this.dataSource.paginator = this.paginator;
     }
 
     setData(): void {
         this.comService.getAllComments(this.section).then((snapshot) => {
             if (snapshot.val() !== null) {
-                this.dataSource = new MatTableDataSource(Object.values(snapshot.val()).reverse());
+                var data = Object.values(snapshot.val()).reverse().sort(function(a: any, b: any): number {
+                    if (a.auditionee > b.auditionee) {
+                        return 1;
+                    } else if (a.auditionee < b.auditionee) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                });
+                this.dataSource = new MatTableDataSource(data);
+                this.dataSource.paginator = this.paginator;
+                this.cookieService.set('section', this.section);
             }
         });
     }
