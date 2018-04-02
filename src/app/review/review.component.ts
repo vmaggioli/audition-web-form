@@ -6,6 +6,7 @@ import { MatTable, MatTableDataSource, MatPaginator, MatSelect } from '@angular/
 import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Comment } from '../comment';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'app-review',
@@ -35,9 +36,14 @@ export class ReviewComponent implements OnInit {
     ];
 
     constructor(private db: AngularFireDatabase,
-        private comService: CommentsService) { }
+        private comService: CommentsService,
+        private cookieService: CookieService) { }
 
     ngOnInit() {
+        if (this.cookieService.get('section') !== null) {
+            this.section = this.cookieService.get('section');
+            this.setData();
+        }
     }
 
     ngAfterViewInit() {
@@ -58,6 +64,7 @@ export class ReviewComponent implements OnInit {
                 });
                 this.dataSource = new MatTableDataSource(data);
                 this.dataSource.paginator = this.paginator;
+                this.cookieService.set('section', this.section);
             }
         });
     }

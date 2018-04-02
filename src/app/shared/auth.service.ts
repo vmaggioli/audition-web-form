@@ -22,13 +22,13 @@ export class AuthService {
   login(username: string, password: string) {
     this.usersService.getStandardUser().then((snapshot) => {
       if (snapshot.val().username === username && snapshot.val().password === password) {
-        this.cookieService.set('loggedIn', 'standard');
+        this.cookieService.set('user', 'standard');
         this.router.navigateByUrl('dashboard');
         return;
       }
       this.usersService.getAdminUser().then((snapshot2) => {
         if (snapshot2.val().username === username && snapshot2.val().password === password) {
-          this.cookieService.set('loggedIn', 'admin');
+          this.cookieService.set('user', 'admin');
           this.router.navigateByUrl('review');
           return;
         }
@@ -40,15 +40,16 @@ export class AuthService {
   }
 
   logout() {
-    this.cookieService.set('loggedIn', '');
+    this.cookieService.set('user', null);
+    this.cookieService.set('tab', null);
     this.router.navigateByUrl('');
   }
 
   isLoggedInStandard(): boolean {
-    return this.cookieService.get('loggedIn') === 'standard';
+    return this.cookieService.get('user') === 'standard';
   }
 
   isLoggedInAdmin(): boolean {
-    return this.cookieService.get('loggedIn') === 'admin';
+    return this.cookieService.get('user') === 'admin';
   }
 }

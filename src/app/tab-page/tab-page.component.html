@@ -1,5 +1,5 @@
 <div class="tab-page">
-    <mat-tab-group mat-stretch-tabs>
+    <mat-tab-group mat-stretch-tabs [selectedIndex]="position" (selectedTabChange)="onLinkClick($event)">
         <mat-tab label="Comment">
             <app-leader-auditionee></app-leader-auditionee>
         </mat-tab>
