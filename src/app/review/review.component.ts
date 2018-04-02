@@ -63,9 +63,11 @@ export class ReviewComponent implements OnInit {
                     }
                 });
                 this.dataSource = new MatTableDataSource(data);
-                this.dataSource.paginator = this.paginator;
-                this.cookieService.set('section', this.section);
+            } else {
+                this.dataSource = new MatTableDataSource();
             }
+            this.dataSource.paginator = this.paginator;
+            this.cookieService.set('section', this.section);
         });
     }
 
