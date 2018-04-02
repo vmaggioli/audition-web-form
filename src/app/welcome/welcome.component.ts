@@ -30,4 +30,10 @@ export class WelcomeComponent implements OnInit {
   login(): void {
     this.auth.login(this.username, this.password);
   }
+
+  enterAction(event: any) {
+    if (event.keyCode == 13) {
+      this.login();
+    }
+  }
 }
